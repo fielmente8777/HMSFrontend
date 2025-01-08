@@ -16,26 +16,29 @@ const Login = () => {
     const navigate = useNavigate();
 
     const id = "B2024022400002"
+    const roomId = "d-101"
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
+        localStorage.setItem('roomId', reservationId);
+        navigate(`/home/?id=${reservationId}`);
+        // setError('');
 
-        try {
-            const response = await LoginAPI(reservationId);
-            if (response) {
-                console.log('Login successful:', response);
-                setReservationId(response.data.bookingId)
-                // setBookingData(response.data)
-                localStorage.setItem('bookingData', JSON.stringify(response.data));
+        // try {
+        //     const response = await LoginAPI(reservationId);
+        //     if (response) {
+        //         console.log('Login successful:', response);
+        //         setReservationId(response.data.bookingId)
+        //         // setBookingData(response.data)
+        //         localStorage.setItem('bookingData', JSON.stringify(response.data));
 
-                navigate(`/home/?id=${response.data.bookingId}`);
-            } else {
-                setError('Invalid reservation ID');
-            }
-        } catch (err) {
-            setError(err.message || 'Something went wrong!');
-        }
+        //         navigate(`/home/?id=${response.data.bookingId}`);
+        //     } else {
+        //         setError('Invalid reservation ID');
+        //     }
+        // } catch (err) {
+        //     setError(err.message || 'Something went wrong!');
+        // }
     };
 
     return (
