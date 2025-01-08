@@ -7,7 +7,7 @@ const HousekeepingCard = ({ title, src }) => {
         <img
           src={src}
           alt={title}
-          className="object-contain w-full h-full absolute top-0 left-0"
+          className="object-contain px-2 w-full h-full absolute top-0 left-0"
         />
       </div>
       <h3 className="text-[#272727] text-[0.78rem] font-medium">{title}</h3>

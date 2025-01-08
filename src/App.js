@@ -14,10 +14,9 @@ function App() {
           <Route path="/home" element={<Home />} />
         </Routes>
         <Footer />
-
       </div>
-      <div className="show">
-
+      <div className="show h-screen flex items-center justify-center w-full">
+        open it in mobile device only
       </div>
     </div>
   );

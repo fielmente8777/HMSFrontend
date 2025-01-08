@@ -31,12 +31,29 @@ const HousekeepingSlider = () => {
       src: Toiletries,
       title: "Toiletries",
     },
+    {
+      src: Pillows,
+      title: "Pillows",
+    },
+    {
+      src: Blankets,
+      title: "Blankets",
+    },
+    {
+      src: Towels,
+      title: "Towels",
+    },
+    {
+      src: Toiletries,
+      title: "Toiletries",
+    },
   ];
 
   return (
     <div className="w-full">
       <Swiper
         slidesPerView={4}
+        
         modules={[Autoplay]}
         autoplay={{
           delay: 2500,
