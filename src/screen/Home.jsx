@@ -48,6 +48,7 @@ const Home = () => {
   console.log(roomData);
 
   const [showCart, setShowCart] = useState(false);
+  
   return (
     <div className={`w-full ${showCart && "relative"}`}>
       <div
