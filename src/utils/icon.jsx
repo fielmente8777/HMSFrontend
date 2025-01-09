@@ -96,3 +96,29 @@ export const EmergencyIcon = (props) => {
     </svg>
   );
 };
+export const Subtract = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="6"
+    height="2"
+    viewBox="0 0 6 2"
+    fill="none"
+  >
+    <path d="M5.466 0.423996V1.576H0.533997V0.423996H5.466Z" fill="#FF432A" />
+  </svg>
+);
+
+export const Add = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="8"
+    height="8"
+    viewBox="0 0 8 8"
+    fill="none"
+  >
+    <path
+      d="M7.06 4.576H4.636V7.06H3.364V4.576H0.940002V3.424H3.364V0.940002H4.636V3.424H7.06V4.576Z"
+      fill="#FF432A"
+    />
+  </svg>
+);
