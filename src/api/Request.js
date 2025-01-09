@@ -6,7 +6,7 @@ export const RequestAPI = async (requestBody) => {
             requestBody,
         );
 
-        if (response.status === 200) {
+        if (response.status === 201) {
             return response.data;
         } else {
             console.error("Unexpected response status:", response.status);

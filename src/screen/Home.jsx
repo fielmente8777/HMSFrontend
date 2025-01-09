@@ -8,9 +8,10 @@ import HousekeepingAssistance from "../components/HousekeepingAssistance/Houseke
 import HouseMaintenance from "../components/HouseMaintenance/HouseMaintenance";
 import Popupcart from "../components/Popupcart";
 import DataContext from "../context/DataContext";
+import ContactSupportPopup from "../components/PopupComponents/ContactSupportPopup";
 const Home = () => {
 
-  const { showCart, setShowCart, auth, setAuth } = useContext(DataContext);
+  const { showCart, setShowCart, auth, setAuth, requestPopup, setRequestPopup } = useContext(DataContext);
   const amenitys = [
     {
       icon: <WifiIcon />,
@@ -30,7 +31,6 @@ const Home = () => {
     setRoomData(JSON.parse(localStorage.getItem("roomsData")));
   }, []);
 
-  setAuth(roomData);
   return (
     <div className={`w-full ${showCart && "relative"}`}>
       <div
@@ -85,6 +85,9 @@ const Home = () => {
       >
         <Popupcart />
       </div>
+
+      {requestPopup && <ContactSupportPopup />}
+
     </div>
   );
 };

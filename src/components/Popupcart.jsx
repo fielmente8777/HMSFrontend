@@ -5,6 +5,7 @@ import { Add, Subtract } from "../utils/icon";
 import DataContext from "../context/DataContext";
 import { Link } from "react-router-dom";
 import { RequestAPI } from "../api/Request";
+import ContactSupportPopup from "./PopupComponents/ContactSupportPopup";
 
 const Popupcart = () => {
 
@@ -12,7 +13,8 @@ const Popupcart = () => {
     showCart, setShowCart,
     services, selectServices,
     counter, setCounter, setError,
-    prepareRequestBody, setPreparedRequestBody
+    prepareRequestBody, setPreparedRequestBody,
+    requestPopup, setRequestPopup
   } = useContext(DataContext);
   const [canRequest, setCanRequest] = useState(false)
   const [specialRequest, setSpecialRequest] = useState('');
@@ -64,6 +66,13 @@ const Popupcart = () => {
       // console.log(body);
       const response = await RequestAPI(body);
 
+      if (response) {
+        setRequestPopup(true);
+        setShowCart(false)
+        setCounter([]);
+        setSpecialRequest('');
+      }
+
       console.log(response)
     } catch (err) {
       setError(err.message || 'Something went wrong!');
@@ -74,14 +83,13 @@ const Popupcart = () => {
   const handleSubmit = (e) => {
 
     e.preventDefault();
-    if (counter.length >= 1) {
+    if (counter.length >= 1 || specialRequest) {
       handleRequest()
       console.log(specialRequest)
     }
-    else if (!specialRequest) {
-      handleRequest()
-
+    else {
       alert("Can make empty request")
+
     }
   }
 
@@ -91,7 +99,7 @@ const Popupcart = () => {
         <Heading h3 className="text-primary font-medium">
           Make your request
         </Heading>
-        {services?.map((items, i) => (
+        {Array.isArray(services) && services.map((items, i) => (
 
           <div key={i}>
             <p>{items.title}</p>
@@ -160,7 +168,6 @@ const Popupcart = () => {
           </Link>
         </div>
       </div>
-
 
     </div>
   );

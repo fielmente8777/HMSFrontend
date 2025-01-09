@@ -58,6 +58,7 @@ export const DataProvider = ({ children }) => {
     )
     const [counter, setCounter] = useState([]);
     const [auth, setAuth] = useState(false);
+    const [requestPopup, setRequestPopup] = useState(false);
 
     const [prepareRequestBody, setPreparedRequestBody] = useState(
         {
@@ -94,7 +95,8 @@ export const DataProvider = ({ children }) => {
                 HousekeepingAssistance, setHouseKeepingAssistance,
                 services, selectServices,
                 counter, setCounter,
-                prepareRequestBody, setPreparedRequestBody
+                prepareRequestBody, setPreparedRequestBody,
+                requestPopup, setRequestPopup
             }}
         >
             {children}
