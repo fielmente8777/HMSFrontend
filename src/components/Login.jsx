@@ -13,7 +13,11 @@ const Login = () => {
     setBookingData,
     roomNumber,
     setRoomNumber,
+    roomData, setRoomData
   } = useContext(DataContext);
+
+  const [guestName, setGuestName] = useState('');
+  const [guestNumber, setGuestNumber] = useState('');
 
   const navigate = useNavigate();
 
@@ -27,6 +31,8 @@ const Login = () => {
       const response = await LoginAPI(reservationId);
       if (response) {
         console.log('Login successful:', response);
+        localStorage.setItem('guestName', guestName);
+        localStorage.setItem('guestNumber', guestNumber);
 
         if (response.exists) {
           console.log("login using roomId");
@@ -77,7 +83,7 @@ const Login = () => {
           <div className="flex flex-col flex-1 gap-3 w-full h-full">
             <div className="flex flex-col gap-2">
               <label htmlFor="booking-number" className="text-black text-base">
-                Reservation Id or Room Number
+                Room Number
               </label>
               <input
                 type="text"
@@ -90,7 +96,36 @@ const Login = () => {
 
             </div>
             {error && <p className="error-message text-[#FF432A]">{error}</p>}
+            <div className="flex flex-col gap-2">
+              <label htmlFor="guest-name" className="text-black text-base">
+                Guest Name
+              </label>
+              <input
+                type="text"
+                placeholder="Enter guest name"
+                id="guest-name"
+                value={guestName}
+                required
+                onChange={(e) => setGuestName(e.target.value)}
+                className="border-b focus:outline-none outline-none border-[#FF432A] py-2"
+              />
 
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="phone-number" className="text-black text-base">
+                Guest Phone Number
+              </label>
+              <input
+                type="text"
+                required
+                placeholder="Enter phone number"
+                id="phone-number"
+                value={guestNumber}
+                onChange={(e) => setGuestNumber(e.target.value)}
+                className="border-b focus:outline-none outline-none border-[#FF432A] py-2"
+              />
+
+            </div>
             <div className="flex items-center gap-3 text-lg">
               <input type="checkbox" id="Remember-me" className="w-4 h-4" />
               <label htmlFor="Remember-me">Remember me</label>

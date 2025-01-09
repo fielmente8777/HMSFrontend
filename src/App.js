@@ -3,7 +3,13 @@ import Footer from "./components/Footer/Footer.jsx";
 import Login from "./components/Login.jsx";
 // import Navbar from "./components/Navbar/Navbar.jsx"
 import Home from "./screen/Home.jsx";
+import { useContext } from "react";
+import DataContext from "./context/DataContext.js";
 function App() {
+
+  const { auth, setAuth } = useContext(DataContext);
+
+
   return (
     <>
       <div className="lg:hidden">

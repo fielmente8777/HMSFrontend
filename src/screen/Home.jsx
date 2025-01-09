@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import bannerImg from "../images/erabanner2.webp";
 import { EmergencyIcon, SearchIcon, WifiIcon } from "../utils/icon";
 import AmenityCard from "../components/cards/AmenityCard";
@@ -7,25 +7,10 @@ import { Link } from "react-router-dom";
 import HousekeepingAssistance from "../components/HousekeepingAssistance/HousekeepingAssistance";
 import HouseMaintenance from "../components/HouseMaintenance/HouseMaintenance";
 import Popupcart from "../components/Popupcart";
+import DataContext from "../context/DataContext";
 const Home = () => {
-  // const [bookingData, setBookingData] = useState(null);
 
-  // Function to fetch booking data from localStorage
-  // const fetchData = () => {
-  //   const data = localStorage.getItem("bookingData");
-  //   if (data) {
-  //     try {
-  //       setBookingData(JSON.parse(data)); // Parse the JSON data
-  //     } catch (error) {
-  //       console.error("Error parsing booking data from localStorage:", error);
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  // fetchData(); // Fetch data on component mount
-  // }, []);
-
+  const { showCart, setShowCart, auth, setAuth } = useContext(DataContext);
   const amenitys = [
     {
       icon: <WifiIcon />,
@@ -45,9 +30,7 @@ const Home = () => {
     setRoomData(JSON.parse(localStorage.getItem("roomsData")));
   }, []);
 
-  console.log(roomData);
-
-  const [showCart, setShowCart] = useState(false);
+  setAuth(roomData);
   return (
     <div className={`w-full ${showCart && "relative"}`}>
       <div
@@ -61,10 +44,13 @@ const Home = () => {
         />
         <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5))]">
           <div className="flex flex-col gap-2 justify-end py-16 text-white h-full px-5">
-            <h1 className="text-xl font-semibold">
-              Room Id : {roomData?.roomId}
+            <h1 className="text-xl font-semibold capitalize">
+              Hey {localStorage.getItem('guestName')}
             </h1>
-            <p className="text-base capitalize">{roomData?.roomType}</p>
+            <p className="capitalize">
+              Room Id : {roomData?.roomId}, {roomData?.roomType}
+            </p>
+            <p className="text-base capitalize"></p>
             <p className="text-base">Welcome to Era Camps</p>
           </div>
         </div>
@@ -97,21 +83,7 @@ const Home = () => {
       <div
         className={`box-shadow flex flex-col gap-5 p-5 rounded-tr-3xl rounded-tl-3xl mt-2 bg-white ${showCart ? "fixed bottom-0 left-0 w-full h-[75vh] z-50" : ""}`}
       >
-        <Popupcart showCart={showCart} />
-        <div className="">
-          <button className="border flex items-center justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]">
-            Raise a request
-          </button>
-        </div>
-        <div>
-          <Link
-            to="tel:+91 99999 999999"
-            className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
-          >
-            <span>Call the Reception</span>
-            <span className="font-medium text-[0.78rem]">+91 99999 999999</span>
-          </Link>
-        </div>
+        <Popupcart />
       </div>
     </div>
   );

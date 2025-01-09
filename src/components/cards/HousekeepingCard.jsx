@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import Heading from "../textcomponents/Heading";
+import DataContext from "../../context/DataContext";
 
-const HousekeepingCard = ({ title, src, setShowCart, showCart }) => {
+const HousekeepingCard = ({ heading, title, src }) => {
+
+  const { showCart, setShowCart, services, selectServices, HousekeepingAssistance, setHouseKeepingAssistance } = useContext(DataContext);
+
+  const handleSelectedServices = (heading) => {
+    if (heading === HousekeepingAssistance[0].title || heading === HousekeepingAssistance[1].title) {
+      selectServices(HousekeepingAssistance);
+    }
+    else {
+      selectServices("HouseMante");
+    }
+    setShowCart(!showCart)
+  }
+
   return (
     <div
       className="flex flex-col items-center gap-1 w-[5rem] aspect-square"
-      onClick={() => {
-        setShowCart(!showCart);
-        console.log("first");
-      }}
+      onClick={() => handleSelectedServices(heading)}
     >
       <div className="relative w-full aspect-square bg-tertiary rounded-xl">
         <img
