@@ -2,10 +2,10 @@ import axios from "axios";
 
 export const LoginAPI = async (reservationId) => {
     if (!reservationId) {
-        throw new Error("Reservation ID is required");
+        throw new Error("Reservation Id or Room Number is required");
     }
     try {
-        const response = await axios.post("http://localhost:8000/api/reservationid", {
+        const response = await axios.post("https://hmsbackend-ifj7.onrender.com/api/reservationid", {
             reservationId: reservationId,
         });
 

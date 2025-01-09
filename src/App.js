@@ -5,8 +5,8 @@ import Login from "./components/Login.jsx";
 import Home from "./screen/Home.jsx";
 function App() {
   return (
-    <div>
-      <div className="app">
+    <>
+      <div className="lg:hidden">
         {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
@@ -15,10 +15,12 @@ function App() {
         </Routes>
         <Footer />
       </div>
-      <div className="show h-screen flex items-center justify-center w-full">
-        open it in mobile device only
+      <div className="max-lg:hidden h-screen flex items-center justify-center w-full">
+        <div>
+          open it in mobile device only
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

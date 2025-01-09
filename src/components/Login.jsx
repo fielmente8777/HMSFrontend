@@ -17,31 +17,42 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const id = "B2024022400002";
-  const roomId = "d-101";
+  // const id = "B2024022400002";
+  // const roomId = "d-101";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem("roomId", reservationId);
-    navigate(`/home/?id=${reservationId}`);
-    // setError('');
 
-    // try {
-    //     const response = await LoginAPI(reservationId);
-    //     if (response) {
-    //         console.log('Login successful:', response);
-    //         setReservationId(response.data.bookingId)
-    //         // setBookingData(response.data)
-    //         localStorage.setItem('bookingData', JSON.stringify(response.data));
+    try {
+      const response = await LoginAPI(reservationId);
+      if (response) {
+        console.log('Login successful:', response);
 
-    //         navigate(`/home/?id=${response.data.bookingId}`);
-    //     } else {
-    //         setError('Invalid reservation ID');
-    //     }
-    // } catch (err) {
-    //     setError(err.message || 'Something went wrong!');
-    // }
+        if (response.exists) {
+          console.log("login using roomId");
+          localStorage.setItem('roomsData', JSON.stringify(response.data));
+          navigate(`/home/?id=${response.data.roomId}`);
+        }
+        else {
+          console.log("request using reservationId")
+          // setReservationId(response.data.bookingId)
+          localStorage.setItem('bookingData', JSON.stringify(response.data));
+          navigate(`/home/?id=${response.data.bookingId}`);
+        }
+
+        // 
+      } else {
+        setError('Invalid reservation ID');
+      }
+    } catch (err) {
+      setError(err.message || 'Something went wrong!');
+    }
   };
+
+
+  if (window.location.pathname === "/login") {
+    localStorage.clear();
+  }
 
   return (
     <div className="">
@@ -53,6 +64,7 @@ const Login = () => {
         />
       </div>
       <div className="flex w-full h-[69.5vh] flex-col gap-8 p-6 rounded-tr-3xl rounded-tl-3xl relative bg-white z-10 -top-10">
+        {/* <div className="flex w-full flex-col gap-8 p-6 rounded-tr-3xl rounded-tl-3xl relative bg-white z-10 -top-10"> */}
         <div className="flex flex-col gap-2">
           <h1 className="text-2xl font-semibold text-[#121212]">
             Welcome to Era Camps by Shivadya
@@ -65,19 +77,22 @@ const Login = () => {
           <div className="flex flex-col flex-1 gap-3 w-full h-full">
             <div className="flex flex-col gap-2">
               <label htmlFor="booking-number" className="text-black text-base">
-                Booking Number
+                Reservation Id or Room Number
               </label>
               <input
                 type="text"
-                placeholder="Enter your booking number"
+                placeholder="Enter reservation id or room number"
                 id="booking-number"
                 value={reservationId}
                 onChange={(e) => setReservationId(e.target.value)}
-                className="border-b focus:outline-none outline-none border-[#FF432A] py-2 px-2"
+                className="border-b focus:outline-none outline-none border-[#FF432A] py-2"
               />
+
             </div>
+            {error && <p className="error-message text-[#FF432A]">{error}</p>}
+
             <div className="flex items-center gap-3 text-lg">
-              <input type="checkbox" id="Remember-me" className="" />
+              <input type="checkbox" id="Remember-me" className="w-4 h-4" />
               <label htmlFor="Remember-me">Remember me</label>
             </div>
           </div>
@@ -89,7 +104,7 @@ const Login = () => {
           </button>
         </form>
       </div>
-      <div className="hidden">
+      {/* <div className="hidden">
         <div className="text-5xl font-semibold mt-20">
           Enter your Reservation Id
         </div>
@@ -102,12 +117,7 @@ const Login = () => {
             className="text-base border border-gray-500 py-2 px-2"
             onChange={(e) => setReservationId(e.target.value)}
           />
-          {/* <p>or</p>
-                <input type='text' placeholder='Enter Room Number'
-                    value={roomNumber}
-                    className='text-base border border-gray-500 py-2 px-2'
-                    onChange={(e) => setRoomNumber(e.target.value)}
-                /> */}
+         
           <div className="flex justify-center items-center">
             <button
               type="submit"
@@ -117,8 +127,7 @@ const Login = () => {
             </button>
           </div>
         </form>
-        {error && <p className="error-message">{error}</p>}
-      </div>
+      </div> */}
     </div>
   );
 };
