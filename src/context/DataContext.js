@@ -5,6 +5,11 @@ import Towels from "../images/Towels.webp";
 import Toiletries from "../images/Toiletries.webp";
 import RoomCleaning from "../images/RoomCleaning.png";
 import BathroomCleaning from "../images/BathroomCleaning.png";
+import TapLeakage from "../images/TapLeakage.png";
+import Drainage from "../images/Drainage.png";
+import PowerOutages from "../images/PowerOutages.png";
+import FaultySwitches from "../images/FaultySwitches.png";
+import FaultyAppliance from "../images/FaultyAppliance.png";
 
 const DataContext = createContext({});
 
@@ -21,7 +26,8 @@ export const DataProvider = ({ children }) => {
     const [HousekeepingAssistance, setHouseKeepingAssistance] = useState(
         [
             {
-                title: "Amenities",
+                title: "Housekeeping Assistance",
+                subtitle: "Amenities",
                 items: [
                     {
                         src: Pillows,
@@ -42,7 +48,8 @@ export const DataProvider = ({ children }) => {
                 ]
             },
             {
-                title: "Rooms & Bathrooms",
+                title: "Housekeeping Assistance",
+                subtitle: "Rooms & Bathrooms",
                 items: [
                     {
                         src: RoomCleaning,
@@ -53,7 +60,40 @@ export const DataProvider = ({ children }) => {
                         title: "Bathroom Cleaning",
                     },
                 ]
-            }
+            },
+
+            {
+                title: "House Maintenance",
+                subtitle: "Plumbing",
+                items: [
+                    {
+                        src: TapLeakage,
+                        title: "Tap Leakage",
+                    },
+                    {
+                        src: Drainage,
+                        title: "Drainage",
+                    },
+                ]
+            },
+            {
+                title: "House Maintenance",
+                subtitle: "Electricity",
+                items: [
+                    {
+                        src: PowerOutages,
+                        title: "Power Outages",
+                    },
+                    {
+                        src: FaultySwitches,
+                        title: "Faulty Switches",
+                    },
+                    {
+                        src: FaultyAppliance,
+                        title: "Faulty Appliance",
+                    },
+                ]
+            },
         ]
     )
     const [counter, setCounter] = useState([]);

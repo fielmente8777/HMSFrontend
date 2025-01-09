@@ -4,14 +4,20 @@ import DataContext from "../../context/DataContext";
 
 const HousekeepingCard = ({ heading, title, src }) => {
 
-  const { showCart, setShowCart, services, selectServices, HousekeepingAssistance, setHouseKeepingAssistance } = useContext(DataContext);
+  const { showCart, setShowCart, selectServices, HousekeepingAssistance, setHouseKeepingAssistance } = useContext(DataContext);
 
   const handleSelectedServices = (heading) => {
-    if (heading === HousekeepingAssistance[0].title || heading === HousekeepingAssistance[1].title) {
-      selectServices(HousekeepingAssistance);
+    if (heading === HousekeepingAssistance[0].subtitle) {
+      selectServices(HousekeepingAssistance[0]);
     }
-    else {
-      selectServices("HouseMante");
+    else if (heading === HousekeepingAssistance[1].subtitle) {
+      selectServices(HousekeepingAssistance[1]);
+    }
+    else if (heading === HousekeepingAssistance[2].subtitle) {
+      selectServices(HousekeepingAssistance[2]);
+    }
+    else if (heading === HousekeepingAssistance[3].subtitle) {
+      selectServices(HousekeepingAssistance[3]);
     }
     setShowCart(!showCart)
   }

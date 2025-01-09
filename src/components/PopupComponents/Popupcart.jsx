@@ -12,20 +12,14 @@ const Popupcart = () => {
     showCart,
     setShowCart,
     services,
-    selectServices,
     counter,
     setCounter,
     setError,
-    prepareRequestBody,
-    setPreparedRequestBody,
-    requestPopup,
     setRequestPopup,
   } = useContext(DataContext);
-  const [canRequest, setCanRequest] = useState(false);
   const [specialRequest, setSpecialRequest] = useState("");
 
   const handleCounter = (type, title) => {
-    console.log("Clicked", type, title);
     setCounter((prevCounter) => {
       const itemExists = prevCounter.find((obj) => obj.item === title);
       if (itemExists) {
@@ -33,12 +27,12 @@ const Popupcart = () => {
           .map((obj) =>
             obj.item === title
               ? {
-                  ...obj,
-                  quantity:
-                    type === "add"
-                      ? obj.quantity + 1
-                      : Math.max(obj.quantity - 1, 0),
-                }
+                ...obj,
+                quantity:
+                  type === "add"
+                    ? obj.quantity + 1
+                    : Math.max(obj.quantity - 1, 0),
+              }
               : obj
           )
           .filter((obj) => obj.quantity > 0);
@@ -55,7 +49,6 @@ const Popupcart = () => {
       }
     });
   };
-  console.log(counter);
 
   const handleRequest = async () => {
     try {
@@ -68,7 +61,6 @@ const Popupcart = () => {
         specialRequest: specialRequest,
       };
 
-      // console.log(body);
       const response = await RequestAPI(body);
 
       if (response) {
@@ -78,7 +70,6 @@ const Popupcart = () => {
         setSpecialRequest("");
       }
 
-      console.log(response);
     } catch (err) {
       setError(err.message || "Something went wrong!");
     }
@@ -88,7 +79,6 @@ const Popupcart = () => {
     e.preventDefault();
     if (counter.length >= 1 || specialRequest) {
       handleRequest();
-      console.log(specialRequest);
     } else {
       alert("Can make empty request");
     }
@@ -99,58 +89,56 @@ const Popupcart = () => {
     setCounter([]);
     setSpecialRequest("");
   };
+
+
+
   return (
     <div
-      className={`${
-        showCart ? "block w-full mb-5 overflow-y-scroll" : "hidden"
-      }`}
+      className={`${showCart ? "block w-full mb-5 overflow-y-scroll" : "hidden"
+        }`}
     >
       <div className="flex flex-col gap-4">
         <Heading h3 className="text-primary font-medium">
-          Make your request
+          {services?.title}
         </Heading>
-        {Array.isArray(services) &&
-          services.map((items, i) => (
-            <div key={i} className="">
-              <p>{items.title}</p>
-              {items.items.map((item, i) => (
-                <div key={i} className="w-full mb-4">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center justify-center gap-2">
-                      <div className="w-[4rem] aspect-square relative bg-[#F4F0F0] rounded-xl">
-                        <img
-                          src={item.src}
-                          alt={item.title}
-                          className="object-contain px-2 w-full h-full absolute top-0 left-0"
-                        />
-                      </div>
-                      <div>
-                        <p className="text-base">{item.title}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => handleCounter("sub", item.title)}
-                        className="w-[1.2rem] aspect-square flex items-center justify-center rounded-md border border-[#FF432A]"
-                      >
-                        <Subtract />
-                      </button>
-                      <span>
-                        {counter.find((obj) => obj.item === item.title)
-                          ?.quantity || 0}
-                      </span>
-                      <button
-                        onClick={() => handleCounter("add", item.title)}
-                        className="w-[1.2rem] aspect-square flex items-center justify-center rounded-md border border-[#FF432A]"
-                      >
-                        <Add />
-                      </button>
-                    </div>
-                  </div>
+        {services?.items.map((item, i) => (
+
+          <div key={i} className="w-full mb-4">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-[4rem] aspect-square relative bg-[#F4F0F0] rounded-xl">
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    className="object-contain px-2 w-full h-full absolute top-0 left-0"
+                  />
                 </div>
-              ))}
+                <div>
+                  <p className="text-base">{item.title}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleCounter("sub", item.title)}
+                  className="w-[1.2rem] aspect-square flex items-center justify-center rounded-md border border-[#FF432A]"
+                >
+                  <Subtract />
+                </button>
+                <span>
+                  {counter.find((obj) => obj.item === item.title)
+                    ?.quantity || 0}
+                </span>
+                <button
+                  onClick={() => handleCounter("add", item.title)}
+                  className="w-[1.2rem] aspect-square flex items-center justify-center rounded-md border border-[#FF432A]"
+                >
+                  <Add />
+                </button>
+              </div>
             </div>
-          ))}
+          </div>
+
+        ))}
 
         <form className="w-full flex flex-col gap-2">
           <label

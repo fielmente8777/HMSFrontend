@@ -1,50 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import Heading from "../textcomponents/Heading";
 import CardContainer from "../slider/CardContainer";
-import TapLeakage from "../../images/TapLeakage.png";
-import Drainage from "../../images/Drainage.png";
-import PowerOutages from "../../images/PowerOutages.png";
-import FaultySwitches from "../../images/FaultySwitches.png";
-import FaultyAppliance from "../../images/FaultyAppliance.png";
+import DataContext from "../../context/DataContext";
 
-const HouseMaintenance = ({ setShowCart, showCart }) => {
-  const plumbing = [
-    {
-      src: TapLeakage,
-      title: "Tap Leakage",
-    },
-    {
-      src: Drainage,
-      title: "Drainage",
-    },
-  ];
-  const electricity = [
-    {
-      src: PowerOutages,
-      title: "Power Outages",
-    },
-    {
-      src: FaultySwitches,
-      title: "Faulty Switches",
-    },
-    {
-      src: FaultyAppliance,
-      title: "Faulty Appliance",
-    },
-  ];
+
+const HouseMaintenance = () => {
+  const { HousekeepingAssistance } = useContext(DataContext);
   return (
     <section className="flex flex-col gap-4">
       <Heading h2={true} className="text-base ">
-        House Maintenance
+        {HousekeepingAssistance[3].title}
       </Heading>
       <Heading h3={true} className="text-sm text-secondary">
-        PLUMBING
+        {HousekeepingAssistance[2].subtitle}
       </Heading>
-      <CardContainer data={plumbing} setShowCart={setShowCart} showCart={showCart} />
+      <CardContainer data={HousekeepingAssistance[2].items} heading={HousekeepingAssistance[2].subtitle} />
       <Heading h3={true} className="text-sm text-secondary mt-2">
-        Electricity
+        {HousekeepingAssistance[3].subtitle}
       </Heading>
-      <CardContainer data={electricity} setShowCart={setShowCart} showCart={showCart} />
+      <CardContainer data={HousekeepingAssistance[3].items} heading={HousekeepingAssistance[3].subtitle} />
     </section>
   );
 };

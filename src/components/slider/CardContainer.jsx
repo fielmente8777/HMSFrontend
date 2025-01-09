@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import HousekeepingCard from "../cards/HousekeepingCard";
-import DataContext from "../../context/DataContext";
 
 const CardContainer = ({ data, heading }) => {
-  const { showCart, setShowCart, services, selectServices } = useContext(DataContext);
   return (
     <div className="flex overflow-x-scroll pb-4">
       {data.map((item, index) => (

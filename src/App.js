@@ -17,8 +17,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
         </Routes>
-        {/* {window.location.pathname !== "/login" ? "" :  */}
-        <Footer />
+        {/* {window.location.pathname == "/login" ? "" : <Footer />} */}
+
         {/* } */}
       </div>
       <div className="max-lg:hidden h-screen flex items-center justify-center w-full">

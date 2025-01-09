@@ -8,6 +8,7 @@ import Popupcart from "../components/PopupComponents/Popupcart";
 import DataContext from "../context/DataContext";
 import ContactSupportPopup from "../components/PopupComponents/ContactSupportPopup";
 import RequestRaisedPopup from "../components/PopupComponents/RequestRaisedPopup";
+import Footer from "../components/Footer/Footer";
 const Home = () => {
   const { showCart, setShowCart, requestPopup, setRequestPopup } =
     useContext(DataContext);
@@ -80,17 +81,17 @@ const Home = () => {
         <HouseMaintenance setShowCart={setShowCart} showCart={showCart} />
       </div>
       <div
-        className={` ${
-          showCart
-            ? "fixed bottom-0 left-0 w-full h-[75vh] z-50 box-shadow flex flex-col gap-5 p-5 rounded-tr-3xl rounded-tl-3xl mt-2 bg-white"
-            : ""
-        }`}
+        className={` ${showCart
+          ? "fixed bottom-0 left-0 w-full h-[75vh] z-50 box-shadow flex flex-col gap-5 p-5 rounded-tr-3xl rounded-tl-3xl mt-2 bg-white"
+          : ""
+          }`}
       >
         <Popupcart />
       </div>
 
       {/* {requestPopup && <re />} */}
       <RequestRaisedPopup />
+      <Footer />
     </div>
   );
 };
