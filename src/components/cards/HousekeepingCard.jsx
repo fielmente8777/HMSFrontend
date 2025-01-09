@@ -4,7 +4,7 @@ import DataContext from "../../context/DataContext";
 
 const HousekeepingCard = ({ heading, title, src }) => {
 
-  const { showCart, setShowCart, selectServices, HousekeepingAssistance, setHouseKeepingAssistance } = useContext(DataContext);
+  const { showCart, setShowCart, selectServices, HousekeepingAssistance } = useContext(DataContext);
 
   const handleSelectedServices = (heading) => {
     if (heading === HousekeepingAssistance[0].subtitle) {

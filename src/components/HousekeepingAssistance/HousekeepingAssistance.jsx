@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import HousekeepingSlider from "../slider/HousekeepingSlider";
 import Heading from "../textcomponents/Heading";
 import CardContainer from "../slider/CardContainer";
 

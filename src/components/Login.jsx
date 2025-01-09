@@ -9,12 +9,6 @@ const Login = () => {
     setReservationId,
     error,
     setError,
-    bookingData,
-    setBookingData,
-    roomNumber,
-    setRoomNumber,
-    roomData,
-    setRoomData,
   } = useContext(DataContext);
 
   const [guestName, setGuestName] = useState("");
@@ -86,7 +80,7 @@ const Login = () => {
               </label>
               <input
                 type="text"
-                placeholder="Enter reservation id or room number"
+                placeholder="Enter room number"
                 id="booking-number"
                 value={reservationId}
                 onChange={(e) => setReservationId(e.target.value)}

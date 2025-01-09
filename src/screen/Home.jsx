@@ -6,11 +6,10 @@ import HousekeepingAssistance from "../components/HousekeepingAssistance/Houseke
 import HouseMaintenance from "../components/HouseMaintenance/HouseMaintenance";
 import Popupcart from "../components/PopupComponents/Popupcart";
 import DataContext from "../context/DataContext";
-import ContactSupportPopup from "../components/PopupComponents/ContactSupportPopup";
 import RequestRaisedPopup from "../components/PopupComponents/RequestRaisedPopup";
 import Footer from "../components/Footer/Footer";
 const Home = () => {
-  const { showCart, setShowCart, requestPopup, setRequestPopup } =
+  const { showCart, setShowCart } =
     useContext(DataContext);
   const amenitys = [
     {
@@ -89,7 +88,6 @@ const Home = () => {
         <Popupcart />
       </div>
 
-      {/* {requestPopup && <re />} */}
       <RequestRaisedPopup />
       <Footer />
     </div>
