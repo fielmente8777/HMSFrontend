@@ -13,11 +13,12 @@ const Login = () => {
     setBookingData,
     roomNumber,
     setRoomNumber,
-    roomData, setRoomData
+    roomData,
+    setRoomData,
   } = useContext(DataContext);
 
-  const [guestName, setGuestName] = useState('');
-  const [guestNumber, setGuestNumber] = useState('');
+  const [guestName, setGuestName] = useState("");
+  const [guestNumber, setGuestNumber] = useState("");
 
   const navigate = useNavigate();
 
@@ -30,31 +31,29 @@ const Login = () => {
     try {
       const response = await LoginAPI(reservationId);
       if (response) {
-        console.log('Login successful:', response);
-        localStorage.setItem('guestName', guestName);
-        localStorage.setItem('guestNumber', guestNumber);
+        console.log("Login successful:", response);
+        localStorage.setItem("guestName", guestName);
+        localStorage.setItem("guestNumber", guestNumber);
 
         if (response.exists) {
           console.log("login using roomId");
-          localStorage.setItem('roomsData', JSON.stringify(response.data));
+          localStorage.setItem("roomsData", JSON.stringify(response.data));
           navigate(`/home/?id=${response.data.roomId}`);
-        }
-        else {
-          console.log("request using reservationId")
+        } else {
+          console.log("request using reservationId");
           // setReservationId(response.data.bookingId)
-          localStorage.setItem('bookingData', JSON.stringify(response.data));
+          localStorage.setItem("bookingData", JSON.stringify(response.data));
           navigate(`/home/?id=${response.data.bookingId}`);
         }
 
-        // 
+        //
       } else {
-        setError('Invalid reservation ID');
+        setError("Invalid reservation ID");
       }
     } catch (err) {
-      setError(err.message || 'Something went wrong!');
+      setError(err.message || "Something went wrong!");
     }
   };
-
 
   if (window.location.pathname === "/login") {
     localStorage.clear();
@@ -80,8 +79,8 @@ const Login = () => {
           </p>
         </div>
         <form className="flex flex-col w-full h-full " onSubmit={handleSubmit}>
-          <div className="flex flex-col flex-1 gap-3 w-full h-full">
-            <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4 w-full h-full mb-8">
+            <div className="flex flex-col gap-1">
               <label htmlFor="booking-number" className="text-black text-base">
                 Room Number
               </label>
@@ -93,38 +92,35 @@ const Login = () => {
                 onChange={(e) => setReservationId(e.target.value)}
                 className="border-b focus:outline-none outline-none border-[#FF432A] py-2"
               />
-
             </div>
             {error && <p className="error-message text-[#FF432A]">{error}</p>}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
               <label htmlFor="guest-name" className="text-black text-base">
-                Guest Name
+                Name
               </label>
               <input
                 type="text"
-                placeholder="Enter guest name"
+                placeholder="Enter your name"
                 id="guest-name"
                 value={guestName}
                 required
                 onChange={(e) => setGuestName(e.target.value)}
                 className="border-b focus:outline-none outline-none border-[#FF432A] py-2"
               />
-
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
               <label htmlFor="phone-number" className="text-black text-base">
-                Guest Phone Number
+                Phone Number
               </label>
               <input
-                type="text"
+                type="number"
                 required
-                placeholder="Enter phone number"
+                placeholder="Enter your number"
                 id="phone-number"
                 value={guestNumber}
                 onChange={(e) => setGuestNumber(e.target.value)}
                 className="border-b focus:outline-none outline-none border-[#FF432A] py-2"
               />
-
             </div>
             <div className="flex items-center gap-3 text-lg">
               <input type="checkbox" id="Remember-me" className="w-4 h-4" />

@@ -2,16 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import bannerImg from "../images/erabanner2.webp";
 import { EmergencyIcon, SearchIcon, WifiIcon } from "../utils/icon";
 import AmenityCard from "../components/cards/AmenityCard";
-import HousekeepingSlider from "../components/slider/HousekeepingSlider";
-import { Link } from "react-router-dom";
 import HousekeepingAssistance from "../components/HousekeepingAssistance/HousekeepingAssistance";
 import HouseMaintenance from "../components/HouseMaintenance/HouseMaintenance";
-import Popupcart from "../components/Popupcart";
+import Popupcart from "../components/PopupComponents/Popupcart";
 import DataContext from "../context/DataContext";
 import ContactSupportPopup from "../components/PopupComponents/ContactSupportPopup";
+import RequestRaisedPopup from "../components/PopupComponents/RequestRaisedPopup";
 const Home = () => {
-
-  const { showCart, setShowCart, auth, setAuth, requestPopup, setRequestPopup } = useContext(DataContext);
+  const { showCart, setShowCart, requestPopup, setRequestPopup } =
+    useContext(DataContext);
   const amenitys = [
     {
       icon: <WifiIcon />,
@@ -45,7 +44,7 @@ const Home = () => {
         <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5))]">
           <div className="flex flex-col gap-2 justify-end py-16 text-white h-full px-5">
             <h1 className="text-xl font-semibold capitalize">
-              Hey {localStorage.getItem('guestName')}
+              Hey {localStorage.getItem("guestName")}
             </h1>
             <p className="capitalize">
               Room Id : {roomData?.roomId}, {roomData?.roomType}
@@ -81,13 +80,17 @@ const Home = () => {
         <HouseMaintenance setShowCart={setShowCart} showCart={showCart} />
       </div>
       <div
-        className={`box-shadow flex flex-col gap-5 p-5 rounded-tr-3xl rounded-tl-3xl mt-2 bg-white ${showCart ? "fixed bottom-0 left-0 w-full h-[75vh] z-50" : ""}`}
+        className={` ${
+          showCart
+            ? "fixed bottom-0 left-0 w-full h-[75vh] z-50 box-shadow flex flex-col gap-5 p-5 rounded-tr-3xl rounded-tl-3xl mt-2 bg-white"
+            : ""
+        }`}
       >
         <Popupcart />
       </div>
 
-      {requestPopup && <ContactSupportPopup />}
-
+      {/* {requestPopup && <re />} */}
+      <RequestRaisedPopup />
     </div>
   );
 };
