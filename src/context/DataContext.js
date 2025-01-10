@@ -20,6 +20,7 @@ import {
   MedicalAssistance,
   ContactitSupport,
   ConfirmIcon,
+  BuffetIcon
 } from "../utils/icon";
 const DataContext = createContext({});
 
@@ -183,6 +184,18 @@ export const DataProvider = ({ children }) => {
         "Your location has been shared. Our team will contact you shortly",
       icon: <ConfirmIcon />,
     },
+    {
+      title: "Reserve a spot for me",
+      description:
+        "Reserve me spot for me for buffet",
+      icon: <BuffetIcon />,
+    },
+    {
+      title: "Order Placed Successfully",
+      description:
+        "We have received your order, will shortly get in touch with you.",
+      icon: <ConfirmIcon />,
+    },
   ]);
   const [counter, setCounter] = useState([]);
   const [auth, setAuth] = useState(false);
@@ -208,6 +221,8 @@ export const DataProvider = ({ children }) => {
     ],
     specialRequest: "Please deliver by 7 PM.",
   });
+
+  const [location, setLocation] = useState()
 
   return (
     <DataContext.Provider
@@ -243,6 +258,7 @@ export const DataProvider = ({ children }) => {
         requestPopupData,
         selectRequestPopupData,
         showPopupSuppert,
+        location, setLocation,
         setShowPopupSuppert,
       }}
     >

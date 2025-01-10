@@ -1,7 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Heading from "../textcomponents/Heading";
 import DataContext from "../../context/DataContext";
 import Para from "../textcomponents/Para";
+import { LocateMeIcon } from "../../utils/icon";
+import axios from "axios"
 
 const PopupSuppert = () => {
   const {
@@ -11,7 +13,10 @@ const PopupSuppert = () => {
     emergencyServices,
     setRequestPopup,
     selectRequestPopupData,
+    location, setLocation,
   } = useContext(DataContext);
+
+  const [googleMap, setGoogleMap] = useState("");
 
   useEffect(() => {
     if (!showPopupSuppert) {
@@ -28,7 +33,50 @@ const PopupSuppert = () => {
     setShowPopupSuppert(false);
   };
 
+
+  const handleLocateMe = async () => {
+    return true;
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(
+    //     async (position) => {
+    //       const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&localityLanguage=en`;
+    //       try {
+    //         const result = await axios.get(url);
+    //         console.log(result.data)
+    //         setLocation((prevLocation) => ({
+    //           ...prevLocation,
+    //           locality: result.data.locality,
+    //           city: result.data.city,
+    //           countryCode: result.data.countryCode,
+    //           country: result.data.countryName,
+    //           state: result.data.principalSubdivision,
+    //         }));
+
+    //         const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=28.4196864,77.0310144`;
+    //         setGoogleMap(googleMapsUrl)
+
+    //       } catch (err) {
+    //         console.error(err);
+    //       }
+    //     },
+    //     (error) => {
+    //       console.error(error)
+    //     }
+    //   );
+
+
+    //   console.log("Google Maps URL:", googleMap);
+    // } else {
+    //   console.error("Geolocation is not supported by this browser.")
+    // }
+  };
+
+
   const handlePopoup = (title) => {
+
+    if (title === "Location shared succesfully") {
+      handleLocateMe();
+    }
     selectRequestPopupData(title);
     setRequestPopup(true);
     setShowPopupSuppert(false);
@@ -45,7 +93,7 @@ const PopupSuppert = () => {
     serviceData = services;
   }
   const hight =
-    serviceData?.items.length >= 3 ? "56%" : serviceData?.items.length + 4 + "0%";
+    serviceData?.items.length >= 3 ? "36%" : serviceData?.items.length + 4 + "0%";
 
   return (
     <div
@@ -55,7 +103,7 @@ const PopupSuppert = () => {
       <div
         className={`transition-transform duration-700 ease-linear transform ${showPopupSuppert ? "translate-y-0" : "translate-y-full"
           }  fixed bottom-0  left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
-        style={{ height: hight }}
+        style={{ height: "auto" }}
       >
         <div
           className="w-10 bg-[#DADADA] h-1 mx-auto mb-4"
@@ -89,9 +137,13 @@ const PopupSuppert = () => {
               <div className="w-full flex flex-col gap-4 mt-5">
                 <button
                   onClick={() => handlePopoup(emergencyServices?.popupTitle)}
-                  className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
+                  className="bg-[#FF432A] flex gap-2 items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
                 >
-                  Contact IT Support
+                  {emergencyServices?.popupTitle ?
+                    // < className="flex gap-4 items-center text-sm">
+                    (<><LocateMeIcon /> Locate Me</>)
+                    // </>
+                    : "Contact IT Support"}
                 </button>
                 <button
                   className="border flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
