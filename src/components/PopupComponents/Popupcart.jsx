@@ -19,7 +19,7 @@ const Popupcart = () => {
   } = useContext(DataContext);
   const [specialRequest, setSpecialRequest] = useState("");
 
- 
+
   useEffect(() => {
     if (!showCart) {
       document.body.style.overflow = "auto";
@@ -39,12 +39,12 @@ const Popupcart = () => {
           .map((obj) =>
             obj.item === title
               ? {
-                  ...obj,
-                  quantity:
-                    type === "add"
-                      ? obj.quantity + 1
-                      : Math.max(obj.quantity - 1, 0),
-                }
+                ...obj,
+                quantity:
+                  type === "add"
+                    ? obj.quantity + 1
+                    : Math.max(obj.quantity - 1, 0),
+              }
               : obj
           )
           .filter((obj) => obj.quantity > 0);
@@ -101,7 +101,7 @@ const Popupcart = () => {
     setSpecialRequest("");
   };
 
-  const handlePopoup = ({ title }) => {
+  const handlePopoup = (title) => {
     selectRequestPopupData(title);
     console.log(title);
     setRequestPopup(true);
@@ -113,14 +113,12 @@ const Popupcart = () => {
 
   return (
     <div
-      className={`fixed inset-0 bg-black/50 z-50 ${
-        showCart ? "block" : "hidden"
-      }`}
+      className={`fixed inset-0 bg-black/50 z-50 ${showCart ? "block" : "hidden"
+        }`}
     >
       <div
-        className={`transition-transform duration-700 ease-linear transform ${
-          showCart ? "translate-y-0" : "translate-y-full"
-        }  fixed bottom-0  left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
+        className={`transition-transform duration-700 ease-linear transform ${showCart ? "translate-y-0" : "translate-y-full"
+          }  fixed bottom-0  left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
         style={{ height: hight }}
       >
         <div
