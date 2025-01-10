@@ -1,21 +1,35 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Heading from "../textcomponents/Heading";
 import { Add, Subtract } from "../../utils/icon";
 import DataContext from "../../context/DataContext";
 import { RequestAPI } from "../../api/Request";
-import RequestRaisedPopup from "./RequestRaisedPopup";
+import Para from "../textcomponents/Para";
 
 const Popupcart = () => {
   const {
     showCart,
     setShowCart,
     services,
+    emergencyServices,
     counter,
     setCounter,
     setError,
     setRequestPopup,
+    selectRequestPopupData,
   } = useContext(DataContext);
   const [specialRequest, setSpecialRequest] = useState("");
+
+ 
+  useEffect(() => {
+    if (!showCart) {
+      document.body.style.overflow = "auto";
+    } else {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showCart]);
 
   const handleCounter = (type, title) => {
     setCounter((prevCounter) => {
@@ -25,12 +39,12 @@ const Popupcart = () => {
           .map((obj) =>
             obj.item === title
               ? {
-                ...obj,
-                quantity:
-                  type === "add"
-                    ? obj.quantity + 1
-                    : Math.max(obj.quantity - 1, 0),
-              }
+                  ...obj,
+                  quantity:
+                    type === "add"
+                      ? obj.quantity + 1
+                      : Math.max(obj.quantity - 1, 0),
+                }
               : obj
           )
           .filter((obj) => obj.quantity > 0);
@@ -67,7 +81,6 @@ const Popupcart = () => {
         setCounter([]);
         setSpecialRequest("");
       }
-
     } catch (err) {
       setError(err.message || "Something went wrong!");
     }
@@ -88,89 +101,151 @@ const Popupcart = () => {
     setSpecialRequest("");
   };
 
+  const handlePopoup = ({ title }) => {
+    selectRequestPopupData(title);
+    console.log(title);
+    setRequestPopup(true);
+    setShowCart(false);
+  };
 
+  const hight =
+    services?.items.length >= 3 ? "56%" : services?.items.length + 4 + "0%";
 
   return (
     <div
-      className={`${showCart ? "block w-full mb-5 overflow-y-scroll" : "hidden"
-        }`}
+      className={`fixed inset-0 bg-black/50 z-50 ${
+        showCart ? "block" : "hidden"
+      }`}
     >
-      <div className="flex flex-col gap-4">
-        <Heading h3 className="text-primary font-medium">
-          {services?.title}
-        </Heading>
-        {services?.items.map((item, i) => (
+      <div
+        className={`transition-transform duration-700 ease-linear transform ${
+          showCart ? "translate-y-0" : "translate-y-full"
+        }  fixed bottom-0  left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
+        style={{ height: hight }}
+      >
+        <div
+          className="w-10 bg-[#DADADA] h-1 mx-auto mb-4"
+          onClick={() => setShowCart(false)}
+        />
+        <div className="overflow-y-scroll h-full">
+          {services && (
+            <div className="flex flex-col gap-4 pb-4">
+              <Heading h3 className="text-primary font-medium">
+                {services?.title}
+              </Heading>
+              {services?.items.map((item, i) => (
+                <div key={i} className="w-full mb-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-[4rem] aspect-square relative bg-[#F4F0F0] rounded-xl">
+                        <img
+                          src={item.src}
+                          alt={item.title}
+                          className="object-contain px-2 w-full h-full absolute top-0 left-0"
+                        />
+                      </div>
+                      <div>
+                        <p className="text-base">{item.title}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => handleCounter("sub", item.title)}
+                        className="w-[1.2rem] aspect-square flex items-center justify-center rounded-md border border-[#FF432A]"
+                      >
+                        <Subtract />
+                      </button>
+                      <span>
+                        {counter.find((obj) => obj.item === item.title)
+                          ?.quantity || 0}
+                      </span>
+                      <button
+                        onClick={() => handleCounter("add", item.title)}
+                        className="w-[1.2rem] aspect-square flex items-center justify-center rounded-md border border-[#FF432A]"
+                      >
+                        <Add />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
 
-          <div key={i} className="w-full mb-4">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center justify-center gap-2">
-                <div className="w-[4rem] aspect-square relative bg-[#F4F0F0] rounded-xl">
-                  <img
-                    src={item.src}
-                    alt={item.title}
-                    className="object-contain px-2 w-full h-full absolute top-0 left-0"
-                  />
-                </div>
-                <div>
-                  <p className="text-base">{item.title}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => handleCounter("sub", item.title)}
-                  className="w-[1.2rem] aspect-square flex items-center justify-center rounded-md border border-[#FF432A]"
+              <form className="w-full flex flex-col gap-2">
+                <label
+                  htmlFor="request"
+                  className="text-base text-primary capitalize"
                 >
-                  <Subtract />
+                  Special request
+                  <span className="text-secondary">(option)</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter your extra request here"
+                  id="request"
+                  value={specialRequest}
+                  onChange={(e) => setSpecialRequest(e.target.value)}
+                  className="border-b focus:outline-none outline-none border-[#FF432A] py-2"
+                />
+              </form>
+
+              <div className="w-full flex flex-col gap-4 mt-5">
+                <button
+                  onClick={handleSubmit}
+                  className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
+                >
+                  Raise Request
                 </button>
-                <span>
-                  {counter.find((obj) => obj.item === item.title)
-                    ?.quantity || 0}
-                </span>
                 <button
-                  onClick={() => handleCounter("add", item.title)}
-                  className="w-[1.2rem] aspect-square flex items-center justify-center rounded-md border border-[#FF432A]"
+                  className="border flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
+                  onClick={handileCancel}
                 >
-                  <Add />
+                  cancel
                 </button>
               </div>
             </div>
-          </div>
-
-        ))}
-
-        <form className="w-full flex flex-col gap-2">
-          <label
-            htmlFor="request"
-            className="text-base text-primary capitalize"
-          >
-            Special request<span className="text-secondary">(option)</span>
-          </label>
-          <input
-            type="text"
-            placeholder="Enter your extra request here"
-            id="request"
-            value={specialRequest}
-            onChange={(e) => setSpecialRequest(e.target.value)}
-            className="border-b focus:outline-none outline-none border-[#FF432A] py-2"
-          />
-        </form>
-
-        <div className="w-full flex flex-col gap-4 mt-5">
-          <button
-            onClick={handleSubmit}
-            className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
-          >
-            Raise Request
-          </button>
-          <button
-            className="border flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
-            onClick={handileCancel}
-          >
-            cancel
-          </button>
+          )}
+          {emergencyServices && (
+            <div className="flex flex-col gap-4 pb-4">
+              <Heading h3 className="text-primary font-medium text-base">
+                {emergencyServices?.title}
+              </Heading>
+              {emergencyServices?.src && (
+                <div className="flex items-center justify-center w-full">
+                  <div className="w-full aspect-[4/2.2] relative">
+                    <img
+                      src={emergencyServices?.src}
+                      alt={emergencyServices?.title}
+                      className="object-cover w-full h-full absolute top-0 left-0"
+                    />
+                  </div>
+                </div>
+              )}
+              {emergencyServices?.subtitle && (
+                <Heading h3 className="text-primary font-medium text-base">
+                  {emergencyServices?.subtitle}
+                </Heading>
+              )}
+              <Para className="text-secondary text-sm">
+                {emergencyServices?.description}
+              </Para>
+              <div className="w-full flex flex-col gap-4 mt-5">
+                <button
+                  onClick={() => handlePopoup("Contact it Support")}
+                  className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
+                >
+                  Contact IT Support
+                </button>
+                <button
+                  className="border flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
+                  onClick={handileCancel}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-      <RequestRaisedPopup />
     </div>
   );
 };

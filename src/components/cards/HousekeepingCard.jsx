@@ -3,24 +3,18 @@ import Heading from "../textcomponents/Heading";
 import DataContext from "../../context/DataContext";
 
 const HousekeepingCard = ({ heading, title, src }) => {
-
-  const { showCart, setShowCart, selectServices, HousekeepingAssistance } = useContext(DataContext);
+  const { setShowCart, selectServices, HousekeepingAssistance } =
+    useContext(DataContext);
 
   const handleSelectedServices = (heading) => {
-    if (heading === HousekeepingAssistance[0].subtitle) {
-      selectServices(HousekeepingAssistance[0]);
+    const service = HousekeepingAssistance.find(
+      (service) => service.subtitle === heading
+    );
+    if (service) {
+      selectServices(service);
     }
-    else if (heading === HousekeepingAssistance[1].subtitle) {
-      selectServices(HousekeepingAssistance[1]);
-    }
-    else if (heading === HousekeepingAssistance[2].subtitle) {
-      selectServices(HousekeepingAssistance[2]);
-    }
-    else if (heading === HousekeepingAssistance[3].subtitle) {
-      selectServices(HousekeepingAssistance[3]);
-    }
-    setShowCart(!showCart)
-  }
+    setShowCart((prevShowCart) => !prevShowCart);
+  };
 
   return (
     <div
