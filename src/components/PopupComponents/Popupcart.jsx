@@ -3,14 +3,12 @@ import Heading from "../textcomponents/Heading";
 import { Add, Subtract } from "../../utils/icon";
 import DataContext from "../../context/DataContext";
 import { RequestAPI } from "../../api/Request";
-import Para from "../textcomponents/Para";
 
 const Popupcart = () => {
   const {
     showCart,
     setShowCart,
     services,
-    emergencyServices,
     counter,
     setCounter,
     setError,
@@ -18,7 +16,6 @@ const Popupcart = () => {
     selectRequestPopupData,
   } = useContext(DataContext);
   const [specialRequest, setSpecialRequest] = useState("");
-
 
   useEffect(() => {
     if (!showCart) {
@@ -77,6 +74,7 @@ const Popupcart = () => {
 
       if (response) {
         setRequestPopup(true);
+        selectRequestPopupData("Request raised");
         setShowCart(false);
         setCounter([]);
         setSpecialRequest("");
@@ -101,16 +99,23 @@ const Popupcart = () => {
     setSpecialRequest("");
   };
 
-  const handlePopoup = (title) => {
-    selectRequestPopupData(title);
-    console.log(title);
-    setRequestPopup(true);
-    setShowCart(false);
-  };
+  // const hight =
+  //   services?.items?.length >= 3 ? "56%" : services?.items?.length + 4 + "0%";
 
-  const hight =
-    services?.items.length >= 3 ? "56%" : services?.items.length + 4 + "0%";
+  let serviceData = null;
+  let foodData = null;
+  if (services?.title === "In-Room Dining") {
 
+    foodData = services;
+    console.log("haa haaa thik hia ")
+  }
+  else {
+    serviceData = services;
+  }
+
+
+
+  console.log(services)
   return (
     <div
       className={`fixed inset-0 bg-black/50 z-50 ${showCart ? "block" : "hidden"
@@ -118,130 +123,144 @@ const Popupcart = () => {
     >
       <div
         className={`transition-transform duration-700 ease-linear transform ${showCart ? "translate-y-0" : "translate-y-full"
-          }  fixed bottom-0  left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
-        style={{ height: hight }}
+          }  fixed bottom-0 h-1/2 left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
+      // style={{ height: hight }}
       >
         <div
           className="w-10 bg-[#DADADA] h-1 mx-auto mb-4"
           onClick={() => setShowCart(false)}
         />
         <div className="overflow-y-scroll h-full">
-          {services && (
-            <div className="flex flex-col gap-4 pb-4">
-              <Heading h3 className="text-primary font-medium">
-                {services?.title}
-              </Heading>
-              {services?.items.map((item, i) => (
-                <div key={i} className="w-full mb-4">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center justify-center gap-2">
-                      <div className="w-[4rem] aspect-square relative bg-[#F4F0F0] rounded-xl">
-                        <img
-                          src={item.src}
-                          alt={item.title}
-                          className="object-contain px-2 w-full h-full absolute top-0 left-0"
-                        />
-                      </div>
-                      <div>
-                        <p className="text-base">{item.title}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => handleCounter("sub", item.title)}
-                        className="w-[1.2rem] aspect-square flex items-center justify-center rounded-md border border-[#FF432A]"
-                      >
-                        <Subtract />
-                      </button>
-                      <span>
-                        {counter.find((obj) => obj.item === item.title)
-                          ?.quantity || 0}
-                      </span>
-                      <button
-                        onClick={() => handleCounter("add", item.title)}
-                        className="w-[1.2rem] aspect-square flex items-center justify-center rounded-md border border-[#FF432A]"
-                      >
-                        <Add />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-
-              <form className="w-full flex flex-col gap-2">
-                <label
-                  htmlFor="request"
-                  className="text-base text-primary capitalize"
-                >
-                  Special request
-                  <span className="text-secondary">(option)</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter your extra request here"
-                  id="request"
-                  value={specialRequest}
-                  onChange={(e) => setSpecialRequest(e.target.value)}
-                  className="border-b focus:outline-none outline-none border-[#FF432A] py-2"
-                />
-              </form>
-
-              <div className="w-full flex flex-col gap-4 mt-5">
-                <button
-                  onClick={handleSubmit}
-                  className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
-                >
-                  Raise Request
-                </button>
-                <button
-                  className="border flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
-                  onClick={handileCancel}
-                >
-                  cancel
-                </button>
-              </div>
-            </div>
-          )}
-          {emergencyServices && (
-            <div className="flex flex-col gap-4 pb-4">
-              <Heading h3 className="text-primary font-medium text-base">
-                {emergencyServices?.title}
-              </Heading>
-              {emergencyServices?.src && (
-                <div className="flex items-center justify-center w-full">
-                  <div className="w-full aspect-[4/2.2] relative">
-                    <img
-                      src={emergencyServices?.src}
-                      alt={emergencyServices?.title}
-                      className="object-cover w-full h-full absolute top-0 left-0"
-                    />
-                  </div>
-                </div>
-              )}
-              {emergencyServices?.subtitle && (
-                <Heading h3 className="text-primary font-medium text-base">
-                  {emergencyServices?.subtitle}
+          <div className="flex flex-col gap-4 pb-4">
+            {serviceData && (
+              <>
+                <Heading h3 className="text-primary font-medium">
+                  {services?.title}
                 </Heading>
-              )}
-              <Para className="text-secondary text-sm">
-                {emergencyServices?.description}
-              </Para>
-              <div className="w-full flex flex-col gap-4 mt-5">
-                <button
-                  onClick={() => handlePopoup("Contact it Support")}
-                  className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
-                >
-                  Contact IT Support
-                </button>
-                <button
-                  className="border flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
-                  onClick={handileCancel}
-                >
-                  Close
-                </button>
-              </div>
+                {services?.items.map((item, i) => (
+                  <div key={i} className="w-full mb-4">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center justify-center gap-2">
+                        <div className="w-[4rem] aspect-square relative bg-[#F4F0F0] rounded-xl">
+                          <img
+                            src={item.src}
+                            alt={item.title}
+                            className="object-contain px-2 w-full h-full absolute top-0 left-0"
+                          />
+                        </div>
+                        <div>
+                          <p className="text-base">{item.title}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => handleCounter("sub", item.title)}
+                          className={`w-[1.2rem] aspect-square flex items-center justify-center rounded-md border ${counter.find((obj) => obj.item === item.title)
+                            ?.quantity < 1
+                            ? "border-gray-400"
+                            : "border-[#FF432A]"
+                            }`}
+                        >
+                          <Subtract />
+                        </button>
+                        <span className="text-base w-[1rem] flex items-center justify-center">
+                          {counter.find((obj) => obj.item === item.title)
+                            ?.quantity || 0}
+                        </span>
+                        <button
+                          onClick={() => handleCounter("add", item.title)}
+                          className="w-[1.2rem] aspect-square flex items-center justify-center rounded-md border border-[#FF432A]"
+                        >
+                          <Add />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+
+
+            {foodData &&
+              <>
+                {foodData?.option.map((item, i) => (
+                  <div key={i} className="w-full mb-4">
+                    {item.title}
+                    {/* <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center justify-center gap-2">
+                        <div className="w-[4rem] aspect-square relative bg-[#F4F0F0] rounded-xl">
+                          <img
+                            src={item.src}
+                            alt={item.title}
+                            className="object-contain px-2 w-full h-full absolute top-0 left-0"
+                          />
+                        </div>
+                        <div>
+                          <p className="text-base">{item.title}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => handleCounter("sub", item.title)}
+                          className={`w-[1.2rem] aspect-square flex items-center justify-center rounded-md border ${counter.find((obj) => obj.item === item.title)
+                            ?.quantity < 1
+                            ? "border-gray-400"
+                            : "border-[#FF432A]"
+                            }`}
+                        >
+                          <Subtract />
+                        </button>
+                        <span className="text-base w-[1rem] flex items-center justify-center">
+                          {counter.find((obj) => obj.item === item.title)
+                            ?.quantity || 0}
+                        </span>
+                        <button
+                          onClick={() => handleCounter("add", item.title)}
+                          className="w-[1.2rem] aspect-square flex items-center justify-center rounded-md border border-[#FF432A]"
+                        >
+                          <Add />
+                        </button>
+                      </div>
+                    </div> */}
+                  </div>
+                ))}
+              </>
+            }
+
+
+            <form className="w-full flex flex-col gap-2">
+              <label
+                htmlFor="request"
+                className="text-base text-primary capitalize"
+              >
+                Special request
+                <span className="text-secondary">(optional)</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter your extra request here"
+                id="request"
+                value={specialRequest}
+                onChange={(e) => setSpecialRequest(e.target.value)}
+                className="border-b focus:outline-none outline-none border-[#FF432A] py-2"
+              />
+            </form>
+
+            <div className="w-full flex flex-col gap-4 mt-5">
+              <button
+                onClick={handleSubmit}
+                className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
+              >
+                Raise Request
+              </button>
+              <button
+                className="border flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
+                onClick={handileCancel}
+              >
+                cancel
+              </button>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
