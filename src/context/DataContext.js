@@ -29,6 +29,7 @@ export const DataProvider = ({ children }) => {
   const [error, setError] = useState("");
   const [bookingData, setBookingData] = useState(null);
   const [showCart, setShowCart] = useState(false);
+  const [showPopupSuppert, setShowPopupSuppert] = useState(false);
 
   const [services, selectServices] = useState(null);
   const [emergencyServices, selectEmergencyServices] = useState(null);
@@ -37,12 +38,14 @@ export const DataProvider = ({ children }) => {
     {
       icon: <WifiIcon />,
       title: "Wifi assistance",
+      popupTitle: "Contact it Support",
       description:
         "Connect to WiFi name “Shivadya Tent City” and enter password “123456”.",
     },
     {
       icon: <EmergencyIcon />,
       title: "Emergency",
+      popupTitle: "Location shared succesfully",
       subtitle: "Don’t worry. We are here for you.",
       description:
         "Share your location with us, and our team will call you for immediate assistance",
@@ -133,6 +136,25 @@ export const DataProvider = ({ children }) => {
         {
           src: InRoomDining,
           title: "In-Room Dining",
+          option: [
+            {
+              title: "soup",
+              soup: ["Roasted Tomato & Basil", "Hot & Sour Veg"],
+            },
+            {
+              title: "munches",
+              munches: [
+                "Peri Peri Fries",
+                "Veg. Coleslaw Sandwich",
+                "Cajun Potato Wedges",
+                "Dal Tadka",
+                "Paneer Lababdaar",
+                "Steamed Rice",
+                "Peas Pulao",
+                "Tandoori Roti",
+              ],
+            },
+          ],
         },
         {
           src: Buffet,
@@ -220,6 +242,8 @@ export const DataProvider = ({ children }) => {
         setModalData,
         requestPopupData,
         selectRequestPopupData,
+        showPopupSuppert,
+        setShowPopupSuppert,
       }}
     >
       {children}

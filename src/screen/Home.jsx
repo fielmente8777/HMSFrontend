@@ -8,9 +8,9 @@ import RequestRaisedPopup from "../components/PopupComponents/RequestRaisedPopup
 import Footer from "../components/Footer/Footer";
 import CommonServiceCard1 from "../components/ServiceCard/CommonServiceCard1";
 import CommonServiceCard from "../components/ServiceCard/CommonServiceCard";
+import PopupSuppert from "../components/PopupComponents/PopupSuppert";
 const Home = () => {
   const { showCart } = useContext(DataContext);
- 
 
   const [roomData, setRoomData] = useState(
     JSON.parse(localStorage.getItem("roomsData"))
@@ -22,9 +22,7 @@ const Home = () => {
 
   return (
     <div className={`w-full`}>
-      <div
-        className="relative w-full aspect-[4/2.9] -z-10"
-      >
+      <div className="relative w-full aspect-[4/2.9] -z-10">
         <img
           src={bannerImg}
           alt="banner"
@@ -60,7 +58,7 @@ const Home = () => {
       </div>
 
       <Popupcart />
-
+      <PopupSuppert />
       <RequestRaisedPopup />
       <Footer />
     </div>

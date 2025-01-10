@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import DataContext from "../../context/DataContext";
 
 const AmenityCard = ({ icon, title }) => {
-  const { setShowCart, selectEmergencyServices, amenities } =
+  const { setShowPopupSuppert, selectEmergencyServices, amenities } =
     useContext(DataContext);
   const handleSelectedServices = (heading) => {
     const service = amenities.find((service) => service.title === heading);
@@ -10,7 +10,7 @@ const AmenityCard = ({ icon, title }) => {
     if (service) {
       selectEmergencyServices(service);
     }
-    setShowCart((prevShowCart) => !prevShowCart);
+    setShowPopupSuppert(true);
   };
   return (
     <div

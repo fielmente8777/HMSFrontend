@@ -13,7 +13,8 @@ const HousekeepingCard = ({ heading, title, src }) => {
     if (service) {
       selectServices(service);
     }
-    setShowCart((prevShowCart) => !prevShowCart);
+    setShowCart(true);
+    // setShowCart((prevShowCart) => !prevShowCart);
   };
 
   return (

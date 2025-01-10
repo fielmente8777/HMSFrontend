@@ -34,7 +34,7 @@ const RequestRaisedPopup = () => {
             request. */}
             {data?.description}
           </Para>
-          <div className="grid grid-cols-2 items-center justify-center gap-4 w-full">
+          {/* <div className="grid grid-cols-2 items-center justify-center gap-4 w-full">
             <button
               onClick={handleRaisedRequestPopup}
               className="border flex items-center justify-center uppercase border-[#FF432A] text-sm font-semibold py-3  w-full rounded-full text-[#FF432A]"
@@ -47,7 +47,13 @@ const RequestRaisedPopup = () => {
             >
               Okay
             </button>
-          </div>
+          </div> */}
+          <button
+            onClick={handleRaisedRequestPopup}
+            className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 w-full uppercase tracking-wider rounded-full"
+          >
+            Okay
+          </button>
         </div>
       </div>
     </div>
