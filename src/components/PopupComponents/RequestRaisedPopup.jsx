@@ -2,13 +2,15 @@ import React, { useContext } from "react";
 import DataContext from "../../context/DataContext";
 import Heading from "../textcomponents/Heading";
 import Para from "../textcomponents/Para";
-import { ConfirmIcon } from "../../utils/icon";
 
 const RequestRaisedPopup = () => {
-  const { setRequestPopup, requestPopup } = useContext(DataContext);
+  const { setRequestPopup, requestPopup, modalData, requestPopupData } =
+    useContext(DataContext);
   const handleRaisedRequestPopup = () => {
     setRequestPopup(false);
   };
+
+  const data = modalData.find((item) => item.title === requestPopupData);
   return (
     <div
       className={`${
@@ -17,18 +19,20 @@ const RequestRaisedPopup = () => {
       } ${requestPopup ? "opacity-100" : "opacity-0 pointer-events-none"}`}
     >
       <div
-        className={`bg-white  border rounded-3xl overflow-hidden border-red-800 w-full transform transition-transform duration-300 ease-in-out ${
+        className={`bg-white shadow-md rounded-3xl overflow-hidden w-full transform transition-transform duration-300 ease-in-out ${
           requestPopup ? "scale-100" : "scale-95"
         }`}
       >
         <div className="flex flex-col items-center justify-center h-full gap-3 p-4 w-full ">
-          <ConfirmIcon />
+          {data?.icon}
           <Heading h2 className="text-base text-black font-semibold">
-            Request Raised
+            {/* Request Raised */}
+            {data?.title}
           </Heading>
           <Para className="text-secondary text-center">
-            We are glad to assist you, please wait for sometime to sever your
-            request.
+            {/* We are glad to assist you, please wait for sometime to sever your
+            request. */}
+            {data?.description}
           </Para>
           <div className="grid grid-cols-2 items-center justify-center gap-4 w-full">
             <button

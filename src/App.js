@@ -10,6 +10,7 @@ function App() {
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/raise-a-equest" element={<Home />} />
         </Routes>
       </div>
       <div className="max-lg:hidden h-screen flex items-center justify-center w-full">

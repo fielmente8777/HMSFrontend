@@ -2,25 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import bannerImg from "../images/erabanner2.webp";
 import { EmergencyIcon, SearchIcon, WifiIcon } from "../utils/icon";
 import AmenityCard from "../components/cards/AmenityCard";
-import HousekeepingAssistance from "../components/HousekeepingAssistance/HousekeepingAssistance";
-import HouseMaintenance from "../components/HouseMaintenance/HouseMaintenance";
 import Popupcart from "../components/PopupComponents/Popupcart";
 import DataContext from "../context/DataContext";
 import RequestRaisedPopup from "../components/PopupComponents/RequestRaisedPopup";
 import Footer from "../components/Footer/Footer";
+import CommonServiceCard1 from "../components/ServiceCard/CommonServiceCard1";
+import CommonServiceCard from "../components/ServiceCard/CommonServiceCard";
 const Home = () => {
-  const { showCart, setShowCart } =
-    useContext(DataContext);
-  const amenitys = [
-    {
-      icon: <WifiIcon />,
-      title: "Wifi assistance",
-    },
-    {
-      icon: <EmergencyIcon />,
-      title: "Emergency",
-    },
-  ];
+  const { showCart } = useContext(DataContext);
+ 
 
   const [roomData, setRoomData] = useState(
     JSON.parse(localStorage.getItem("roomsData"))
@@ -31,10 +21,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div className={`w-full ${showCart && "relative"}`}>
+    <div className={`w-full`}>
       <div
         className="relative w-full aspect-[4/2.9] -z-10"
-        onClick={(e) => e.stopPropagation()}
       >
         <img
           src={bannerImg}
@@ -55,7 +44,6 @@ const Home = () => {
         </div>
       </div>
       <div className="flex w-full flex-col gap-5 p-5 rounded-tr-3xl rounded-tl-3xl -mt-10 bg-white">
-        {/* <div className="flex w-full flex-col gap-5 p-5 rounded-tr-3xl rounded-tl-3xl relative bg-white z-10 -top-10"> */}
         <div className="flex justify-between items-center gap-1 border border-[#B2B2B2] rounded-full p-2">
           <button>
             <SearchIcon />
@@ -66,27 +54,12 @@ const Home = () => {
             placeholder="Search Services"
           />
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          {amenitys.map((item, index) => (
-            <AmenityCard
-              {...item}
-              key={index}
-              showCart={showCart}
-              setShowCart={setShowCart}
-            />
-          ))}
-        </div>
-        <HousekeepingAssistance setShowCart={setShowCart} showCart={showCart} />
-        <HouseMaintenance setShowCart={setShowCart} showCart={showCart} />
+
+        <CommonServiceCard />
+        <CommonServiceCard1 />
       </div>
-      <div
-        className={` ${showCart
-          ? "fixed bottom-0 left-0 w-full h-[75vh] z-50 box-shadow flex flex-col gap-5 p-5 rounded-tr-3xl rounded-tl-3xl mt-2 bg-white"
-          : ""
-          }`}
-      >
-        <Popupcart />
-      </div>
+
+      <Popupcart />
 
       <RequestRaisedPopup />
       <Footer />
