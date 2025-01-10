@@ -139,11 +139,11 @@ export const DataProvider = ({ children }) => {
           option: [
             {
               title: "soup",
-              soup: ["Roasted Tomato & Basil", "Hot & Sour Veg"],
+              food: ["Roasted Tomato & Basil", "Hot & Sour Veg"],
             },
             {
               title: "munches",
-              munches: [
+              food: [
                 "Peri Peri Fries",
                 "Veg. Coleslaw Sandwich",
                 "Cajun Potato Wedges",
@@ -159,25 +159,6 @@ export const DataProvider = ({ children }) => {
         {
           src: Buffet,
           title: "Buffet",
-          option: [
-            {
-              title: "butt",
-              soup: ["Roasted Tomato & Basil", "Hot & Sour Veg"],
-            },
-            {
-              title: "butt",
-              munches: [
-                "butt butt butt",
-                "Veg. Coleslaw Sandwich",
-                "Cajun Potato Wedges",
-                "Dal Tadka",
-                "Paneer Lababdaar",
-                "Steamed Rice",
-                "Peas Pulao",
-                "Tandoori Roti",
-              ],
-            },
-          ],
         },
       ],
     },
