@@ -5,6 +5,7 @@ const AmenityCard = ({ icon, title }) => {
   const { setShowPopupSuppert, selectEmergencyServices, amenities } =
     useContext(DataContext);
   const handleSelectedServices = (heading) => {
+
     const service = amenities.find((service) => service.title === heading);
 
     if (service) {

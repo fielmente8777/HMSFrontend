@@ -19,12 +19,10 @@ const HousekeepingCard = ({ heading, title, src }) => {
           service.items.some((item) => item.title === title)
       );
 
-      console.log(service);
 
       if (service) {
         if (service.items[0].title === title) {
           selectServices(service.items[0]);
-          console.log(service.items[0].title);
           setShowCart(true);
         } else if (service.items[1].title === title) {
           selectRequestPopupData("Reserve a spot for me");
@@ -42,13 +40,11 @@ const HousekeepingCard = ({ heading, title, src }) => {
       setShowCart(true);
     }
 
-    // setShowCart((prevShowCart) => !prevShowCart);
   };
 
   return (
     <div
       className="flex flex-col items-center gap-1 w-[5rem] aspect-square"
-    // onClick={() => handleSelectedServices(heading)}
     >
       <div
         onClick={() => handleSelectedServices(heading, title)}

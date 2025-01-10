@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Heading from "../textcomponents/Heading";
 import DataContext from "../../context/DataContext";
 import Para from "../textcomponents/Para";
 import { LocateMeIcon } from "../../utils/icon";
-import axios from "axios"
 
 const PopupSuppert = () => {
   const {
@@ -13,10 +12,8 @@ const PopupSuppert = () => {
     emergencyServices,
     setRequestPopup,
     selectRequestPopupData,
-    location, setLocation,
   } = useContext(DataContext);
 
-  const [googleMap, setGoogleMap] = useState("");
 
   useEffect(() => {
     if (!showPopupSuppert) {
@@ -87,7 +84,6 @@ const PopupSuppert = () => {
   if (services?.title === "In-Room Dining") {
 
     foodData = services;
-    console.log("haa haaa thik hia ")
   }
   else {
     serviceData = services;
@@ -139,7 +135,7 @@ const PopupSuppert = () => {
                   onClick={() => handlePopoup(emergencyServices?.popupTitle)}
                   className="bg-[#FF432A] flex gap-2 items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
                 >
-                  {emergencyServices?.popupTitle ?
+                  {emergencyServices?.popupTitle === "Location shared succesfully" ?
                     // < className="flex gap-4 items-center text-sm">
                     (<><LocateMeIcon /> Locate Me</>)
                     // </>

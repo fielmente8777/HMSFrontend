@@ -30,7 +30,6 @@ const Popupcart = () => {
   }, [showCart]);
 
   const handleCounter = (type, title) => {
-    console.log(type, title);
     setCounter((prevCounter) => {
       const itemExists = prevCounter.find((obj) => obj.item === title);
       if (itemExists) {
@@ -108,12 +107,10 @@ const Popupcart = () => {
   let foodData = null;
   if (services?.title === "In-Room Dining") {
     foodData = services;
-    console.log("haa haaa thik hia ");
   } else {
     serviceData = services;
   }
 
-  console.log(services);
   return (
     <div
       className={`fixed inset-0 bg-black/50 z-50 ${showCart ? "block" : "hidden"

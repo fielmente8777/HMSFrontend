@@ -25,22 +25,17 @@ const Login = () => {
     try {
       const response = await LoginAPI(reservationId);
       if (response) {
-        console.log("Login successful:", response);
         localStorage.setItem("guestName", guestName);
         localStorage.setItem("guestNumber", guestNumber);
 
         if (response.exists) {
-          console.log("login using roomId");
           localStorage.setItem("roomsData", JSON.stringify(response.data));
           navigate(`/home/?id=${response.data.roomId}`);
         } else {
-          console.log("request using reservationId");
-          // setReservationId(response.data.bookingId)
           localStorage.setItem("bookingData", JSON.stringify(response.data));
           navigate(`/home/?id=${response.data.bookingId}`);
         }
 
-        //
       } else {
         setError("Invalid reservation ID");
       }
@@ -129,30 +124,6 @@ const Login = () => {
           </button>
         </form>
       </div>
-      {/* <div className="hidden">
-        <div className="text-5xl font-semibold mt-20">
-          Enter your Reservation Id
-        </div>
-
-        <form onSubmit={handleSubmit} className="mt-10 flex flex-col gap-10">
-          <input
-            type="text"
-            placeholder="Room Number or Reservation Id"
-            value={reservationId}
-            className="text-base border border-gray-500 py-2 px-2"
-            onChange={(e) => setReservationId(e.target.value)}
-          />
-         
-          <div className="flex justify-center items-center">
-            <button
-              type="submit"
-              className="border text-white p-2 px-10 bg-gray-600"
-            >
-              {"-->"} Next
-            </button>
-          </div>
-        </form>
-      </div> */}
     </div>
   );
 };

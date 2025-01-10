@@ -3,7 +3,6 @@ import HousekeepingCard from "../cards/HousekeepingCard";
 
 const CardContainer = ({ data, heading }) => {
 
-  console.log(heading)
   return (
     <div className="flex overflow-x-scroll pb-4">
       {data.map((item, index) => (
