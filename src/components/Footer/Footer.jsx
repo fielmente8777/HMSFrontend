@@ -20,7 +20,7 @@ const Footer = () => {
           <span className="font-medium text-[0.7rem]">+91 99999 999999</span>
         </button>
         <Link
-          to="/raise-a-equest"
+          to="/not-found"
           className="border flex items-center justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
         >
           Raise a request

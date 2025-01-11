@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Pillows from "../images/Pillows.webp";
 import Blankets from "../images/Blankets.webp";
 import Towels from "../images/Towels.webp";
@@ -25,6 +25,108 @@ import {
 const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
+
+  const [auth, setAuth] = useState(true);
+  const [hotelDetails, setHotelDetails] = useState(null);
+  const [clientWebsiteData, setClientsWebsiteData] = useState({});
+  const [coreIds, setCoreIds] = useState({
+    hotelId: localStorage.getItem('hid'),
+    hotelNdId: localStorage.getItem('hotelid')
+  })
+
+  const baseUrl = "https://nexon.eazotel.com";
+
+
+  const getClientWebsiteData = async () => {
+    const response = await fetch(
+      `${baseUrl}/cms/get/website/ndid/${localStorage.getItem("hotelid")}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json, text/plain, /",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const json = await response.json();
+    // const json = await response1.json();
+    if (json.Status) {
+      setClientsWebsiteData(json.WebsiteData);
+    }
+  }
+  const getClientEngineData = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `${baseUrl}/booking/getenginedetails/${localStorage.getItem(
+          "hotelid"
+        )}/${localStorage.getItem("hid")}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json, text/plain, /",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const json = await response.json();
+
+
+      if (json.Status === true) {
+        getClientWebsiteData();
+        setHotelDetails(json.Details);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log("Error: " + error)
+      setLoading(false);
+    }
+    setLoading(false);
+
+  }
+
+  // const getId = async () => {
+  //   try {
+  //     console.log("fhgjkm")
+  //     const result = await axios.get("/setId");
+  //     const resp = await result
+
+  //     if (resp.Status) {
+  //       localStorage.setItem("hotelid", resp.ndid);
+  //       localStorage.setItem("hid", resp.hId);
+  //     }
+  //     const websiteData = await getClientWebsiteData();
+  //     setClientsWebsiteData(websiteData)
+
+  //   } catch { }
+  // }
+
+  useEffect(() => {
+    setHotelDetails("None");
+
+    //Comment these lines if runnning with backend
+    // era camps
+    localStorage.setItem("hotelid", "f80fb327-020b-4fc7-a085-f2ae10edabe9");
+    localStorage.setItem("hid", "11960126");
+    // sparv
+    // localStorage.setItem("hotelid", "e50d8dc6-4cfc-4c87-b6c0-145ccdeb4121");
+    // localStorage.setItem("hid", "56369483");
+    getClientEngineData();
+
+
+    // till here
+
+    //Comment these lines if runnning with frontend
+    // getId();
+    //till here
+  }, []);
+
+
+
+
+
+
   const [reservationId, setReservationId] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
   const [error, setError] = useState("");
@@ -198,8 +300,9 @@ export const DataProvider = ({ children }) => {
     },
   ]);
   const [counter, setCounter] = useState([]);
-  const [auth, setAuth] = useState(false);
   const [requestPopup, setRequestPopup] = useState(false);
+  const [specialRequest, setSpecialRequest] = useState("");
+
 
   const [prepareRequestBody, setPreparedRequestBody] = useState({
     guestName: "Abhijeet",
@@ -223,10 +326,19 @@ export const DataProvider = ({ children }) => {
   });
 
   const [location, setLocation] = useState()
+  const [loading, setLoading] = useState(false);
+
+  const [roomData, setRoomData] = useState();
 
   return (
     <DataContext.Provider
       value={{
+        specialRequest, setSpecialRequest,
+        getClientEngineData,
+        loading, setLoading,
+        coreIds,
+        clientWebsiteData, setClientsWebsiteData,
+        hotelDetails, setHotelDetails,
         auth,
         setAuth,
         reservationId,
@@ -260,6 +372,7 @@ export const DataProvider = ({ children }) => {
         showPopupSuppert,
         location, setLocation,
         setShowPopupSuppert,
+        roomData, setRoomData
       }}
     >
       {children}

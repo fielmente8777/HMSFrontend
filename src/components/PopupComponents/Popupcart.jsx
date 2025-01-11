@@ -15,8 +15,8 @@ const Popupcart = () => {
     setError,
     setRequestPopup,
     selectRequestPopupData,
+    specialRequest, setSpecialRequest
   } = useContext(DataContext);
-  const [specialRequest, setSpecialRequest] = useState("");
 
   useEffect(() => {
     if (!showCart) {
