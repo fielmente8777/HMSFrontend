@@ -7,8 +7,16 @@ const CommonServiceCard1 = () => {
   const { HousekeepingAssistance } = useContext(DataContext);
 
 
+  const roomData = JSON.parse(localStorage.getItem("roomsData"));
+  let length;
+  if (roomData?.roomType === "luxury") {
+    length = 4;
+  }
+  else {
+    length = 3
+  }
   const uniqueTitles = [
-    ...new Set(HousekeepingAssistance.slice(0, 5).map((item) => item.title)),
+    ...new Set(HousekeepingAssistance.slice(0, length).map((item) => item.title)),
   ];
 
   return (

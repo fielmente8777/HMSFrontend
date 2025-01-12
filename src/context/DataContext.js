@@ -300,6 +300,16 @@ export const DataProvider = ({ children }) => {
       icon: <BuffetIcon />,
     },
     {
+      title: "Luggage assistance",
+      description: "Help me to pickup my Luggage",
+      icon: <BuffetIcon />,
+    },
+    {
+      title: "Medical assistance",
+      description: "I need a instant medical assistance",
+      icon: <BuffetIcon />,
+    },
+    {
       title: "Order Placed Successfully",
       description:
         "We have received your order, will shortly get in touch with you.",

@@ -14,15 +14,13 @@ const RequestRaisedPopup = () => {
   const data = modalData.find((item) => item.title === requestPopupData);
   return (
     <div
-      className={`${
-        requestPopup &&
+      className={`${requestPopup &&
         "fixed flex justify-center items-center w-full top-0 left-0 h-full bg-black/50 px-5 transition-opacity duration-300 ease-in-out"
-      } ${requestPopup ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        } ${requestPopup ? "opacity-100" : "opacity-0 pointer-events-none"}`}
     >
       <div
-        className={`bg-white shadow-md rounded-3xl overflow-hidden w-full transform transition-transform duration-300 ease-in-out ${
-          requestPopup ? "scale-100" : "scale-95"
-        }`}
+        className={`bg-white shadow-md rounded-3xl overflow-hidden w-full transform transition-transform duration-300 ease-in-out ${requestPopup ? "scale-100" : "scale-95"
+          }`}
       >
         <div className="flex flex-col items-center justify-center h-full gap-3 p-4 w-full ">
           {data?.icon}
@@ -35,7 +33,8 @@ const RequestRaisedPopup = () => {
             request. */}
             {data?.description}
           </Para>
-          {data?.title === "Call Receptionist" ?(<div className="grid grid-cols-2 items-center justify-center gap-4 w-full">
+
+          {data?.title === "Call Receptionist" || data?.title === "Luggage assistance" || data?.title === "Medical assistance" ? (<div className="grid grid-cols-2 items-center justify-center gap-4 w-full">
             <button
               onClick={handleRaisedRequestPopup}
               className="border flex items-center justify-center uppercase border-[#FF432A] text-sm font-semibold py-3  w-full rounded-full text-[#FF432A]"
@@ -48,13 +47,13 @@ const RequestRaisedPopup = () => {
             >
               Call Us
             </Link>
-          </div>):
-          (<button
-            onClick={handleRaisedRequestPopup}
-            className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 w-full uppercase tracking-wider rounded-full"
-          >
-            Okay
-          </button>)}
+          </div>) :
+            (<button
+              onClick={handleRaisedRequestPopup}
+              className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 w-full uppercase tracking-wider rounded-full"
+            >
+              Okay
+            </button>)}
         </div>
       </div>
     </div>

@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Heading from "../textcomponents/Heading";
 import DataContext from "../../context/DataContext";
 import Para from "../textcomponents/Para";
 import { LocateMeIcon } from "../../utils/icon";
+import axios from 'axios'
 
 const PopupSuppert = () => {
   const {
@@ -12,8 +13,9 @@ const PopupSuppert = () => {
     emergencyServices,
     setRequestPopup,
     selectRequestPopupData,
+    error, setError
   } = useContext(DataContext);
-  
+
 
   useEffect(() => {
     if (!showPopupSuppert) {
@@ -29,46 +31,61 @@ const PopupSuppert = () => {
   const handileCancel = () => {
     setShowPopupSuppert(false);
   };
+  const [locationUrl, setLocationUrl] = useState(null);
 
+  const handleLocationRequest = async (googlemapurl) => {
+    try {
+      const data = JSON.parse(localStorage.getItem("roomsData"));
+      const result = await axios.post('https://hmsbackend-7pyp.onrender.com/api/emergencylocationshared', {
+        ndid: localStorage.getItem("hotelid"),
+        hid: localStorage.getItem("hid"),
+        guestName: localStorage.getItem("guestName"),
+        guestPhoneNumber: localStorage.getItem("guestNumber"),
+        roomNumber: data?.roomId,
+        roomType: data?.roomType,
+        request: googlemapurl
+      })
+
+      const response = result.data;
+      if (response) {
+        return response;
+      };
+    } catch (error) {
+      console.error(error);
+    }
+  }
   const handleLocateMe = async () => {
-    return true;
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition(
-    //     async (position) => {
-    //       const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&localityLanguage=en`;
-    //       try {
-    //         const result = await axios.get(url);
-    //         console.log(result.data)
-    //         setLocation((prevLocation) => ({
-    //           ...prevLocation,
-    //           locality: result.data.locality,
-    //           city: result.data.city,
-    //           countryCode: result.data.countryCode,
-    //           country: result.data.countryName,
-    //           state: result.data.principalSubdivision,
-    //         }));
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
 
-    //         const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=28.4196864,77.0310144`;
-    //         setGoogleMap(googleMapsUrl)
+          setLocationUrl(googleMapsUrl);
+          setError(null);
 
-    //       } catch (err) {
-    //         console.error(err);
-    //       }
-    //     },
-    //     (error) => {
-    //       console.error(error)
-    //     }
-    //   );
+          // Example: Send or log the URL
+          console.log("Google Maps URL:", googleMapsUrl);
+          const result = handleLocationRequest(googleMapsUrl);
+          if (result) {
 
-    //   console.log("Google Maps URL:", googleMap);
-    // } else {
-    //   console.error("Geolocation is not supported by this browser.")
-    // }
-  };
+          }
+        },
+        (err) => {
+          setError(err.message);
+          setLocationUrl(null);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by your browser.");
+    }
+  }
 
-  const handlePopoup = (title) => {
+  const handlePopoup = async (title) => {
     if (title === "Location shared succesfully") {
-      handleLocateMe();
+      await handleLocateMe();
+      selectRequestPopupData(title);
+      setRequestPopup(true);
     }
     selectRequestPopupData(title);
     setRequestPopup(true);
@@ -89,22 +106,20 @@ const PopupSuppert = () => {
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 ${
-        showPopupSuppert
-          ? "opacity-100 pointer-events-auto"
-          : "opacity-0 pointer-events-none"
-      }`}
-      // onClick={(e) => {
-      //   e.stopPropagation(); // Prevent the click from bubbling up
-      //   setShowPopupSuppert(false); // Close the popup on overlay click
-      // }}
+      className={`fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 ${showPopupSuppert
+        ? "opacity-100 pointer-events-auto"
+        : "opacity-0 pointer-events-none"
+        }`}
+    // onClick={(e) => {
+    //   e.stopPropagation(); // Prevent the click from bubbling up
+    //   setShowPopupSuppert(false); // Close the popup on overlay click
+    // }}
     >
       <div
-        className={`box-shadow transform transition-all duration-500 ease-in-out ${
-          showPopupSuppert
-            ? "translate-y-0 opacity-100"
-            : "translate-y-full opacity-0"
-        } fixed bottom-0 left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
+        className={`box-shadow transform transition-all duration-500 ease-in-out ${showPopupSuppert
+          ? "translate-y-0 opacity-100"
+          : "translate-y-full opacity-0"
+          } fixed bottom-0 left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
         style={{ height: "auto" }}
       >
         <div
@@ -142,7 +157,7 @@ const PopupSuppert = () => {
                   className="bg-[#FF432A] flex gap-2 items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
                 >
                   {emergencyServices?.popupTitle ===
-                  "Location shared succesfully" ? (
+                    "Location shared succesfully" ? (
                     <>
                       <LocateMeIcon /> Locate Me
                     </>

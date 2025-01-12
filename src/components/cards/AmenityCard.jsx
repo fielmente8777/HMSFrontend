@@ -1,17 +1,60 @@
 import React, { useContext } from "react";
 import DataContext from "../../context/DataContext";
+import { RequestAPI } from "../../api/Request";
 
 const AmenityCard = ({ icon, title }) => {
-  const { setShowPopupSuppert, selectEmergencyServices, amenities } =
+  const { setShowPopupSuppert, selectEmergencyServices, setCounter, setError, setShowCart, setSpecialRequest, setRequestPopup, amenities, selectRequestPopupData } =
     useContext(DataContext);
   const handleSelectedServices = (heading) => {
-
     const service = amenities.find((service) => service.title === heading);
 
     if (service) {
       selectEmergencyServices(service);
     }
-    setShowPopupSuppert(true);
+
+
+    if (heading === "Luggage assistance") {
+      const handleRequest = async (title) => {
+        try {
+          const data = JSON.parse(localStorage.getItem("roomsData"));
+          const body = {
+            ndid: localStorage.getItem("hotelid"),
+            hid: localStorage.getItem("hid"),
+            guestName: localStorage.getItem("guestName"),
+            guestPhoneNumber: localStorage.getItem("guestNumber"),
+            roomNumber: data?.roomId,
+            requestedItems: [{
+              item: "Luggage",
+              quantity: 1,
+            }],
+            specialRequest: "Help to pick up my luggage",
+          };
+
+          const response = await RequestAPI(body);
+
+          if (response) {
+            setRequestPopup(true);
+            selectRequestPopupData(title ? title : "Request raised");
+            setShowCart(false);
+            setCounter([]);
+            setSpecialRequest("");
+          }
+        } catch (err) {
+          setError(err.message || "Something went wrong!");
+        }
+      };
+      handleRequest()
+    }
+    else if (heading === "Medical assistance") {
+      selectRequestPopupData(heading);
+      setRequestPopup(true);
+    }
+    else {
+      setShowPopupSuppert(true);
+    }
+
+
+
   };
   return (
     <div

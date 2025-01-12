@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import bannerImg from "../images/erabanner2.webp";
 import { EmergencyIcon, SearchIcon, WifiIcon } from "../utils/icon";
@@ -15,11 +15,29 @@ const Home = () => {
   const [roomData, setRoomData] = useState();
 
   const navigate = useNavigate()
+  const location = useLocation()
+
+
+
 
 
   useEffect(() => {
+
+    const params = new URLSearchParams(location.search);
+
+    const ndid = params.get('id');
+    const hid = params.get('hid');
+    const reservationid = params.get('reservationid');
+
+    const storedNdid = localStorage.getItem('hotelid');
+    const storedHid = localStorage.getItem('hid');
+    const storedReservationid = JSON.parse(localStorage.getItem('roomsData'));
+
     if (!localStorage.getItem("roomsData")) {
       navigate('/login')
+    }
+    else if (!ndid || !hid || !reservationid || ndid !== storedNdid || hid !== storedHid || reservationid !== storedReservationid?.roomId) {
+      navigate('/not-found')
     }
     setRoomData(JSON.parse(localStorage.getItem("roomsData")));
     getClientEngineData()
@@ -41,7 +59,7 @@ const Home = () => {
                 <img
                   src={hotelDetails?.Footer?.Logo}
                   alt="banner"
-                  className="object-cover w-20 bg-white h-20 absolute top-0 left-[50%] border bg-transparent"
+                  className="object-cover w-20 bg-white h-20 absolute top-0 left-[50%] bg-transparent"
                   style={{
                     transform: 'translate(-50%)'
                   }}
@@ -62,7 +80,7 @@ const Home = () => {
             </div>
           </div>
           <div className="flex w-full flex-col gap-5 p-5 rounded-tr-3xl rounded-tl-3xl -mt-10 bg-white">
-            <div className="flex justify-between items-center gap-1 border border-[#B2B2B2] rounded-full p-2">
+            {/* <div className="flex justify-between items-center gap-1 border border-[#B2B2B2] rounded-full p-2">
               <button>
                 <SearchIcon />
               </button>
@@ -71,7 +89,7 @@ const Home = () => {
                 className="w-full outline-none"
                 placeholder="Search Services"
               />
-            </div>
+            </div> */}
 
             <CommonServiceCard />
             <CommonServiceCard1 />
