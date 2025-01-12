@@ -17,6 +17,8 @@ const Popupcart = () => {
     selectRequestPopupData,
     specialRequest,
     setSpecialRequest,
+    loading,
+    setLoading
   } = useContext(DataContext);
 
   useEffect(() => {
@@ -38,12 +40,12 @@ const Popupcart = () => {
           .map((obj) =>
             obj.item === title
               ? {
-                  ...obj,
-                  quantity:
-                    type === "add"
-                      ? Math.min(obj.quantity + 1, 5)
-                      : Math.max(obj.quantity - 1, 0),
-                }
+                ...obj,
+                quantity:
+                  type === "add"
+                    ? Math.min(obj.quantity + 1, 5)
+                    : Math.max(obj.quantity - 1, 0),
+              }
               : obj
           )
           .filter((obj) => obj.quantity > 0);
@@ -65,6 +67,8 @@ const Popupcart = () => {
     try {
       const data = JSON.parse(localStorage.getItem("roomsData"));
       const body = {
+        ndid: localStorage.getItem("hotelid"),
+        hid: localStorage.getItem("hid"),
         guestName: localStorage.getItem("guestName"),
         guestPhoneNumber: localStorage.getItem("guestNumber"),
         roomNumber: data?.roomId,
@@ -114,20 +118,18 @@ const Popupcart = () => {
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 ${
-        showCart
-          ? "opacity-100 pointer-events-auto"
-          : "opacity-0 pointer-events-none"
-      }`}
-      // onClick={(e) => {
-      //   e.stopPropagation(); // Prevent the click from bubbling up
-      //   setShowCart(false); // Close the popup on overlay click
-      // }}
+      className={`fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 ${showCart
+        ? "opacity-100 pointer-events-auto"
+        : "opacity-0 pointer-events-none"
+        }`}
+    // onClick={(e) => {
+    //   e.stopPropagation(); // Prevent the click from bubbling up
+    //   setShowCart(false); // Close the popup on overlay click
+    // }}
     >
       <div
-        className={`box-shadow transform transition-all duration-500 ease-in-out ${
-          showCart ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-        } fixed bottom-0 left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
+        className={`box-shadow transform transition-all duration-500 ease-in-out ${showCart ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+          } fixed bottom-0 left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
         style={{ height: !serviceData ? "70%" : servicesHight }}
       >
         <div
@@ -159,12 +161,11 @@ const Popupcart = () => {
                       <div className="flex items-center gap-3">
                         <button
                           onClick={() => handleCounter("sub", item.title)}
-                          className={`w-[1.2rem] aspect-square flex items-center justify-center rounded-md border ${
-                            counter.find((obj) => obj.item === item.title)
-                              ?.quantity < 1
-                              ? "border-gray-400"
-                              : "border-[#FF432A]"
-                          }`}
+                          className={`w-[1.2rem] aspect-square flex items-center justify-center rounded-md border ${counter.find((obj) => obj.item === item.title)
+                            ?.quantity < 1
+                            ? "border-gray-400"
+                            : "border-[#FF432A]"
+                            }`}
                         >
                           <Subtract />
                         </button>
@@ -209,12 +210,11 @@ const Popupcart = () => {
                           <div className="flex items-center w-full gap-3">
                             <button
                               onClick={() => handleCounter("sub", item)}
-                              className={`w-[1.2rem] aspect-square flex items-center justify-center rounded-md border ${
-                                counter.find((obj) => obj.item === item)
-                                  ?.quantity < 1
-                                  ? "border-gray-400"
-                                  : "border-[#FF432A]"
-                              }`}
+                              className={`w-[1.2rem] aspect-square flex items-center justify-center rounded-md border ${counter.find((obj) => obj.item === item)
+                                ?.quantity < 1
+                                ? "border-gray-400"
+                                : "border-[#FF432A]"
+                                }`}
                             >
                               <Subtract />
                             </button>
@@ -255,6 +255,9 @@ const Popupcart = () => {
               />
             </form>
 
+
+
+
             <div className="w-full flex flex-col gap-4 mt-5">
               <button
                 onClick={(e) =>
@@ -262,12 +265,12 @@ const Popupcart = () => {
                     ? handleSubmit(e)
                     : handleSubmit(e, "Order Placed Successfully")
                 }
-                className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
+                className={`  bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full`}
               >
                 {serviceData ? "Raise Request" : "Place order"}
               </button>
               <button
-                className="border flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
+                className="border  flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
                 onClick={handileCancel}
               >
                 cancel

@@ -16,26 +16,28 @@ const HousekeepingCard = ({ heading, title, src }) => {
     specialRequest, setSpecialRequest
   } = useContext(DataContext);
 
-  const handleBuffet = async (title) => {
-    try {
-      const data = JSON.parse(localStorage.getItem("roomsData"));
-      const body = {
-        guestName: localStorage.getItem("guestName"),
-        guestPhoneNumber: localStorage.getItem("guestNumber"),
-        roomNumber: data?.roomId,
-        requestedItems: [{
-          item: title,
-          quantity: 1,
-        }],
-        specialRequest: specialRequest,
-      };
+  // const handleBuffet = async (title) => {
+  //   try {
+  //     const data = JSON.parse(localStorage.getItem("roomsData"));
+  //     const body = {
+  //       ndid: localStorage.getItem("hotelid"),
+  //       hid: localStorage.getItem("hid"),
+  //       guestName: localStorage.getItem("guestName"),
+  //       guestPhoneNumber: localStorage.getItem("guestNumber"),
+  //       roomNumber: data?.roomId,
+  //       requestedItems: [{
+  //         item: title,
+  //         quantity: 1,
+  //       }],
+  //       specialRequest: specialRequest,
+  //     };
 
-      const response = await RequestAPI(body);
-      return response;
-    } catch (err) {
-      setError(err.message || "Something went wrong!");
-    }
-  }
+  //     const response = await RequestAPI(body);
+  //     return response;
+  //   } catch (err) {
+  //     setError(err.message || "Something went wrong!");
+  //   }
+  // }
 
 
   const handleSelectedServices = (heading, title) => {
@@ -52,12 +54,12 @@ const HousekeepingCard = ({ heading, title, src }) => {
           selectServices(service.items[0]);
           setShowCart(true);
         } else if (service.items[1].title === title) {
-          const result = handleBuffet(title)
-          if (result) {
-            selectRequestPopupData("Reserve a spot for me");
-            setRequestPopup(true);
-            setShowCart(false);
-          }
+          // const result = handleBuffet(title)
+          // if (result) {
+          selectRequestPopupData("Reserve a spot for me");
+          setRequestPopup(true);
+          setShowCart(false);
+          // }
         }
       }
     } else {
