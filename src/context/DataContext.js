@@ -21,24 +21,21 @@ import {
   MedicalAssistance,
   ContactitSupport,
   ConfirmIcon,
-  BuffetIcon
+  BuffetIcon,
 } from "../utils/icon";
-
 
 const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
-
   const [auth, setAuth] = useState(true);
   const [hotelDetails, setHotelDetails] = useState(null);
   const [clientWebsiteData, setClientsWebsiteData] = useState({});
   const [coreIds, setCoreIds] = useState({
-    hotelId: localStorage.getItem('hid'),
-    hotelNdId: localStorage.getItem('hotelid')
-  })
+    hotelId: localStorage.getItem("hid"),
+    hotelNdId: localStorage.getItem("hotelid"),
+  });
 
   const baseUrl = "https://nexon.eazotel.com";
-
 
   const getClientWebsiteData = async () => {
     const response = await fetch(
@@ -57,7 +54,7 @@ export const DataProvider = ({ children }) => {
     if (json.Status) {
       setClientsWebsiteData(json.WebsiteData);
     }
-  }
+  };
   const getClientEngineData = async () => {
     setLoading(true);
     try {
@@ -75,19 +72,17 @@ export const DataProvider = ({ children }) => {
       );
       const json = await response.json();
 
-
       if (json.Status === true) {
         getClientWebsiteData();
         setHotelDetails(json.Details);
       }
       setLoading(false);
     } catch (error) {
-      console.log("Error: " + error)
+      console.log("Error: " + error);
       setLoading(false);
     }
     setLoading(false);
-
-  }
+  };
 
   // const getId = async () => {
   //   try {
@@ -117,18 +112,12 @@ export const DataProvider = ({ children }) => {
     // localStorage.setItem("hid", "56369483");
     getClientEngineData();
 
-
     // till here
 
     //Comment these lines if runnning with frontend
     // getId();
     //till here
   }, []);
-
-
-
-
-
 
   const [reservationId, setReservationId] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
@@ -306,9 +295,8 @@ export const DataProvider = ({ children }) => {
       icon: <ConfirmIcon />,
     },
     {
-      title: "Reserve a spot for me",
-      description:
-        "Reserve me spot for me for buffet",
+      title: "Call Receptionist",
+      description: "Reserve me spot for me for buffet",
       icon: <BuffetIcon />,
     },
     {
@@ -321,7 +309,6 @@ export const DataProvider = ({ children }) => {
   const [counter, setCounter] = useState([]);
   const [requestPopup, setRequestPopup] = useState(false);
   const [specialRequest, setSpecialRequest] = useState("");
-
 
   const [prepareRequestBody, setPreparedRequestBody] = useState({
     guestName: "Abhijeet",
@@ -344,7 +331,7 @@ export const DataProvider = ({ children }) => {
     specialRequest: "Please deliver by 7 PM.",
   });
 
-  const [location, setLocation] = useState()
+  const [location, setLocation] = useState();
   const [loading, setLoading] = useState(false);
 
   const [roomData, setRoomData] = useState();
@@ -352,12 +339,16 @@ export const DataProvider = ({ children }) => {
   return (
     <DataContext.Provider
       value={{
-        specialRequest, setSpecialRequest,
+        specialRequest,
+        setSpecialRequest,
         getClientEngineData,
-        loading, setLoading,
+        loading,
+        setLoading,
         coreIds,
-        clientWebsiteData, setClientsWebsiteData,
-        hotelDetails, setHotelDetails,
+        clientWebsiteData,
+        setClientsWebsiteData,
+        hotelDetails,
+        setHotelDetails,
         auth,
         setAuth,
         reservationId,
@@ -389,9 +380,11 @@ export const DataProvider = ({ children }) => {
         requestPopupData,
         selectRequestPopupData,
         showPopupSuppert,
-        location, setLocation,
+        location,
+        setLocation,
         setShowPopupSuppert,
-        roomData, setRoomData
+        roomData,
+        setRoomData,
       }}
     >
       {children}

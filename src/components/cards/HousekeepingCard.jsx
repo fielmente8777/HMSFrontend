@@ -56,7 +56,7 @@ const HousekeepingCard = ({ heading, title, src }) => {
         } else if (service.items[1].title === title) {
           // const result = handleBuffet(title)
           // if (result) {
-          selectRequestPopupData("Reserve a spot for me");
+          selectRequestPopupData("Call Receptionist");
           setRequestPopup(true);
           setShowCart(false);
           // }
