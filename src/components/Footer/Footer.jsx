@@ -17,10 +17,10 @@ const Footer = () => {
           className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-[0.78rem] text-white py-2 px-4 uppercase tracking-wider rounded-full"
         >
           <span>Call the Reception</span>
-          <span className="font-medium text-[0.7rem]">+91 99999 999999</span>
+          <span className="font-medium text-[0.7rem]">+91 70148 69131</span>
         </button>
         <Link
-          to="/raise-a-equest"
+          to="/not-found"
           className="border flex items-center justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
         >
           Raise a request

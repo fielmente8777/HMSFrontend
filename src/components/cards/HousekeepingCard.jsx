@@ -1,15 +1,42 @@
 import React, { useContext } from "react";
 import Heading from "../textcomponents/Heading";
 import DataContext from "../../context/DataContext";
+import { RequestAPI } from "../../api/Request";
 
 const HousekeepingCard = ({ heading, title, src }) => {
+
   const {
     setShowCart,
     selectServices,
     HousekeepingAssistance,
     setRequestPopup,
     selectRequestPopupData,
+    setCounter,
+    setError,
+    specialRequest, setSpecialRequest
   } = useContext(DataContext);
+
+  const handleBuffet = async (title) => {
+    try {
+      const data = JSON.parse(localStorage.getItem("roomsData"));
+      const body = {
+        guestName: localStorage.getItem("guestName"),
+        guestPhoneNumber: localStorage.getItem("guestNumber"),
+        roomNumber: data?.roomId,
+        requestedItems: [{
+          item: title,
+          quantity: 1,
+        }],
+        specialRequest: specialRequest,
+      };
+
+      const response = await RequestAPI(body);
+      return response;
+    } catch (err) {
+      setError(err.message || "Something went wrong!");
+    }
+  }
+
 
   const handleSelectedServices = (heading, title) => {
     if (title === "In-Room Dining" || title === "Buffet") {
@@ -25,9 +52,12 @@ const HousekeepingCard = ({ heading, title, src }) => {
           selectServices(service.items[0]);
           setShowCart(true);
         } else if (service.items[1].title === title) {
-          selectRequestPopupData("Reserve a spot for me");
-          setRequestPopup(true);
-          setShowCart(false);
+          const result = handleBuffet(title)
+          if (result) {
+            selectRequestPopupData("Reserve a spot for me");
+            setRequestPopup(true);
+            setShowCart(false);
+          }
         }
       }
     } else {

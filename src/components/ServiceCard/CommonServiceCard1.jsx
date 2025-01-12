@@ -8,7 +8,7 @@ const CommonServiceCard1 = () => {
 
 
   const uniqueTitles = [
-    ...new Set(HousekeepingAssistance.map((item) => item.title)),
+    ...new Set(HousekeepingAssistance.slice(0, 5).map((item) => item.title)),
   ];
 
   return (

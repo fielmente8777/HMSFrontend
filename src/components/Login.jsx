@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { LoginAPI } from "../api/Login";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import DataContext from "../context/DataContext";
 
 const Login = () => {
@@ -9,12 +9,16 @@ const Login = () => {
     setReservationId,
     error,
     setError,
+    hotelDetails,
+    coreIds,
+    loading,
+    setLoading,
   } = useContext(DataContext);
-
   const [guestName, setGuestName] = useState("");
   const [guestNumber, setGuestNumber] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   // const id = "B2024022400002";
   // const roomId = "d-101";
@@ -30,12 +34,23 @@ const Login = () => {
 
         if (response.exists) {
           localStorage.setItem("roomsData", JSON.stringify(response.data));
-          navigate(`/home/?id=${response.data.roomId}`);
+          navigate(
+            `/home/?id=${localStorage.getItem(
+              "hotelid"
+            )}&hid=${localStorage.getItem("hid")}&reservationid=${
+              response.data.roomId
+            }`
+          );
         } else {
           localStorage.setItem("bookingData", JSON.stringify(response.data));
-          navigate(`/home/?id=${response.data.bookingId}`);
+          navigate(
+            `/home/?id=${localStorage.getItem(
+              "hotelid"
+            )}&hid=${localStorage.getItem("hid")}&reservationid=${
+              response.data.bookingId
+            }`
+          );
         }
-
       } else {
         setError("Invalid reservation ID");
       }
@@ -44,24 +59,30 @@ const Login = () => {
     }
   };
 
-  if (window.location.pathname === "/login") {
-    localStorage.clear();
-  }
+  useEffect(() => {
+    if (localStorage.getItem("roomsData")) {
+      const roomData = JSON.parse(localStorage.getItem("roomsData"));
+      navigate(
+        `/home/?id=${localStorage.getItem(
+          "hotelid"
+        )}&hid=${localStorage.getItem("hid")}&reservationid=${roomData?.roomId}`
+      );
+    }
+  }, []);
 
   return (
     <div className="">
       <div className="relative w-full aspect-[4/2.5]">
         <img
-          src="./images/erabanner.webp"
+          src={hotelDetails?.BgImage}
           alt="banner"
           className="object-cover w-full h-full absolute top-0 left-0"
         />
       </div>
       <div className="flex w-full h-[69.5vh] flex-col gap-8 p-6 rounded-tr-3xl rounded-tl-3xl relative bg-white z-10 -top-10">
-        {/* <div className="flex w-full flex-col gap-8 p-6 rounded-tr-3xl rounded-tl-3xl relative bg-white z-10 -top-10"> */}
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-semibold text-[#121212]">
-            Welcome to Era Camps by Shivadya
+          <h1 className="text-2xl capitalize font-semibold text-[#121212]">
+            Welcome to {hotelDetails?.HotelName}
           </h1>
           <p className="text-base text-[#5F5F5F]">
             We are glad to see you here
@@ -102,12 +123,19 @@ const Login = () => {
                 Phone Number
               </label>
               <input
-                type="number"
+                type="text" // Use "text" instead of "number" to control the length more effectively
                 required
+                maxLength={10} // This ensures users cannot type more than 10 characters
                 placeholder="Enter your number"
                 id="phone-number"
                 value={guestNumber}
-                onChange={(e) => setGuestNumber(e.target.value)}
+                onChange={(e) => {
+                  const input = e.target.value;
+                  // Allow only numbers and ensure input length does not exceed 10
+                  if (/^\d*$/.test(input) && input.length <= 10) {
+                    setGuestNumber(input);
+                  }
+                }}
                 className="border-b focus:outline-none outline-none border-[#FF432A] py-2"
               />
             </div>
@@ -118,7 +146,7 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="bg-[#FF432A] text-lg text-white py-3 px-4 uppercase tracking-wider rounded-full"
+            className="bg-[#FF432A] text-lg text-white py-3 px-4 uppercase active:scale-95 tracking-wider rounded-full"
           >
             Login
           </button>

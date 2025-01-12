@@ -94,10 +94,10 @@ const PopupSuppert = () => {
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
       }`}
-      onClick={(e) => {
-        e.stopPropagation(); // Prevent the click from bubbling up
-        setShowPopupSuppert(false); // Close the popup on overlay click
-      }}
+      // onClick={(e) => {
+      //   e.stopPropagation(); // Prevent the click from bubbling up
+      //   setShowPopupSuppert(false); // Close the popup on overlay click
+      // }}
     >
       <div
         className={`box-shadow transform transition-all duration-500 ease-in-out ${
