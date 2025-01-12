@@ -13,7 +13,7 @@ const PopupSuppert = () => {
     setRequestPopup,
     selectRequestPopupData,
   } = useContext(DataContext);
-
+  
 
   useEffect(() => {
     if (!showPopupSuppert) {
@@ -29,7 +29,6 @@ const PopupSuppert = () => {
   const handileCancel = () => {
     setShowPopupSuppert(false);
   };
-
 
   const handleLocateMe = async () => {
     return true;
@@ -61,16 +60,13 @@ const PopupSuppert = () => {
     //     }
     //   );
 
-
     //   console.log("Google Maps URL:", googleMap);
     // } else {
     //   console.error("Geolocation is not supported by this browser.")
     // }
   };
 
-
   const handlePopoup = (title) => {
-
     if (title === "Location shared succesfully") {
       handleLocateMe();
     }
@@ -82,27 +78,37 @@ const PopupSuppert = () => {
   let serviceData = null;
   let foodData = null;
   if (services?.title === "In-Room Dining") {
-
     foodData = services;
-  }
-  else {
+  } else {
     serviceData = services;
   }
   const hight =
-    serviceData?.items.length >= 3 ? "36%" : serviceData?.items.length + 4 + "0%";
+    serviceData?.items.length >= 3
+      ? "36%"
+      : serviceData?.items.length + 4 + "0%";
 
   return (
     <div
-      className={`fixed inset-0 bg-black/50 z-50 ${showPopupSuppert ? "block" : "hidden"
-        }`}
+      className={`fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 ${
+        showPopupSuppert
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
+      }`}
+      onClick={(e) => {
+        e.stopPropagation(); // Prevent the click from bubbling up
+        setShowPopupSuppert(false); // Close the popup on overlay click
+      }}
     >
       <div
-        className={`transition-transform duration-700 ease-linear transform ${showPopupSuppert ? "translate-y-0" : "translate-y-full"
-          }  fixed bottom-0  left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
+        className={`box-shadow transform transition-all duration-500 ease-in-out ${
+          showPopupSuppert
+            ? "translate-y-0 opacity-100"
+            : "translate-y-full opacity-0"
+        } fixed bottom-0 left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
         style={{ height: "auto" }}
       >
         <div
-          className="w-10 bg-[#DADADA] h-1 mx-auto mb-4"
+          className="w-10 bg-[#DADADA] h-1 mx-auto mb-4 cursor-pointer"
           onClick={() => setShowPopupSuppert(false)}
         />
         <div className="overflow-y-scroll h-full">
@@ -135,11 +141,14 @@ const PopupSuppert = () => {
                   onClick={() => handlePopoup(emergencyServices?.popupTitle)}
                   className="bg-[#FF432A] flex gap-2 items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
                 >
-                  {emergencyServices?.popupTitle === "Location shared succesfully" ?
-                    // < className="flex gap-4 items-center text-sm">
-                    (<><LocateMeIcon /> Locate Me</>)
-                    // </>
-                    : "Contact IT Support"}
+                  {emergencyServices?.popupTitle ===
+                  "Location shared succesfully" ? (
+                    <>
+                      <LocateMeIcon /> Locate Me
+                    </>
+                  ) : (
+                    "Contact IT Support"
+                  )}
                 </button>
                 <button
                   className="border flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
