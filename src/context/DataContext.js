@@ -201,8 +201,8 @@ export const DataProvider = ({ children }) => {
       ],
     },
     {
-      title: "House Maintenance",
-      subtitle: "Plumbing",
+      title: "Maintenance",
+      subtitle: "",
       items: [
         {
           src: TapLeakage,
@@ -212,12 +212,6 @@ export const DataProvider = ({ children }) => {
           src: Drainage,
           title: "Drainage",
         },
-      ],
-    },
-    {
-      title: "House Maintenance",
-      subtitle: "Electricity",
-      items: [
         {
           src: PowerOutages,
           title: "Power Outages",
@@ -232,6 +226,24 @@ export const DataProvider = ({ children }) => {
         },
       ],
     },
+    // {
+    //   title: "Maintenance",
+    //   subtitle: "Electricity",
+    //   items: [
+    //     {
+    //       src: PowerOutages,
+    //       title: "Power Outages",
+    //     },
+    //     {
+    //       src: FaultySwitches,
+    //       title: "Faulty Switches",
+    //     },
+    //     {
+    //       src: FaultyAppliance,
+    //       title: "Faulty Appliance",
+    //     },
+    //   ],
+    // },
     {
       title: "Luxury Tents",
       subtitle: "",
