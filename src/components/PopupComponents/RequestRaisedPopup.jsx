@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import DataContext from "../../context/DataContext";
 import Heading from "../textcomponents/Heading";
 import Para from "../textcomponents/Para";
+import { Link } from "react-router-dom";
 
 const RequestRaisedPopup = () => {
   const { setRequestPopup, requestPopup, modalData, requestPopupData } =
@@ -34,26 +35,26 @@ const RequestRaisedPopup = () => {
             request. */}
             {data?.description}
           </Para>
-          {/* <div className="grid grid-cols-2 items-center justify-center gap-4 w-full">
+          {data?.title === "Call Receptionist" ?(<div className="grid grid-cols-2 items-center justify-center gap-4 w-full">
             <button
               onClick={handleRaisedRequestPopup}
               className="border flex items-center justify-center uppercase border-[#FF432A] text-sm font-semibold py-3  w-full rounded-full text-[#FF432A]"
             >
-              My requests
+              Cancel
             </button>
-            <button
-              onClick={handleRaisedRequestPopup}
+            <Link
+              to="tel:+91 70148 69131"
               className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 w-full uppercase tracking-wider rounded-full"
             >
-              Okay
-            </button>
-          </div> */}
-          <button
+              Call Us
+            </Link>
+          </div>):
+          (<button
             onClick={handleRaisedRequestPopup}
             className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 w-full uppercase tracking-wider rounded-full"
           >
             Okay
-          </button>
+          </button>)}
         </div>
       </div>
     </div>
