@@ -75,7 +75,6 @@ const PopupSuppert = () => {
         (err) => {
           setLoad(false)
           setError(err.message);
-          setLocationUrl(null);
         }
       );
     } else {
