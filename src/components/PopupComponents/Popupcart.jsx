@@ -4,6 +4,7 @@ import Para from "../textcomponents/Para";
 import { Add, Subtract } from "../../utils/icon";
 import DataContext from "../../context/DataContext";
 import { RequestAPI } from "../../api/Request";
+import Loader from "../Loader";
 
 const Popupcart = () => {
   const {
@@ -21,6 +22,7 @@ const Popupcart = () => {
     setLoading
   } = useContext(DataContext);
 
+  const [load, setLoad] = useState(false);
   useEffect(() => {
     if (!showCart) {
       document.body.style.overflow = "auto";
@@ -64,7 +66,9 @@ const Popupcart = () => {
   };
 
   const handleRequest = async (title) => {
+
     try {
+      setLoad(true)
       const data = JSON.parse(localStorage.getItem("roomsData"));
       const body = {
         ndid: localStorage.getItem("hotelid"),
@@ -79,6 +83,7 @@ const Popupcart = () => {
       const response = await RequestAPI(body);
 
       if (response) {
+        setLoad(false)
         setRequestPopup(true);
         selectRequestPopupData(title ? title : "Request raised");
         setShowCart(false);
@@ -86,6 +91,7 @@ const Popupcart = () => {
         setSpecialRequest("");
       }
     } catch (err) {
+      setLoad(false)
       setError(err.message || "Something went wrong!");
     }
   };
@@ -100,6 +106,7 @@ const Popupcart = () => {
   };
 
   const handileCancel = () => {
+    setLoad(false)
     setShowCart(false);
     setCounter([]);
     setSpecialRequest("");
@@ -267,7 +274,7 @@ const Popupcart = () => {
                 }
                 className={`  bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full`}
               >
-                {serviceData ? "Raise Request" : "Place order"}
+                {serviceData ? <>{load ? <Loader /> : "Raise Request"}</> : <>{load ? <Loader /> : "Place order"}</>}
               </button>
               <button
                 className="border  flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"

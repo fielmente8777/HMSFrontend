@@ -140,7 +140,7 @@ export const DataProvider = ({ children }) => {
     {
       icon: <EmergencyIcon />,
       title: "Emergency",
-      popupTitle: "Location shared succesfully",
+      popupTitle: "Location shared successfully",
       subtitle: "Don’t worry. We are here for you.",
       description:
         "Share your location with us, and our team will call you for immediate assistance",
@@ -289,7 +289,7 @@ export const DataProvider = ({ children }) => {
       icon: <ConfirmIcon />,
     },
     {
-      title: "Location shared succesfully",
+      title: "Location shared successfully",
       description:
         "Your location has been shared. Our team will contact you shortly",
       icon: <ConfirmIcon />,

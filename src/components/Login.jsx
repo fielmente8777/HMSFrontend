@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { LoginAPI } from "../api/Login";
 import { useNavigate, useLocation } from "react-router-dom";
 import DataContext from "../context/DataContext";
+import Loader from "./Loader";
 
 const Login = () => {
   const {
@@ -16,6 +17,7 @@ const Login = () => {
   } = useContext(DataContext);
   const [guestName, setGuestName] = useState("");
   const [guestNumber, setGuestNumber] = useState("");
+  const [load, setLoad] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,6 +29,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
+      setLoad(true);
       const response = await LoginAPI(reservationId);
       if (response) {
         localStorage.setItem("guestName", guestName);
@@ -37,8 +40,7 @@ const Login = () => {
           navigate(
             `/home/?id=${localStorage.getItem(
               "hotelid"
-            )}&hid=${localStorage.getItem("hid")}&reservationid=${
-              response.data.roomId
+            )}&hid=${localStorage.getItem("hid")}&reservationid=${response.data.roomId
             }`
           );
         } else {
@@ -46,15 +48,17 @@ const Login = () => {
           navigate(
             `/home/?id=${localStorage.getItem(
               "hotelid"
-            )}&hid=${localStorage.getItem("hid")}&reservationid=${
-              response.data.bookingId
+            )}&hid=${localStorage.getItem("hid")}&reservationid=${response.data.bookingId
             }`
           );
         }
+        setLoad(false);
       } else {
+        setLoad(false)
         setError("Invalid reservation ID");
       }
     } catch (err) {
+      setLoad(false)
       setError(err.message || "Something went wrong!");
     }
   };
@@ -146,9 +150,9 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="bg-[#FF432A] text-lg text-white py-3 px-4 uppercase active:scale-95 tracking-wider rounded-full"
+            className="bg-[#FF432A] text-lg flex justify-center items-center text-white py-3 px-4 uppercase active:scale-95 tracking-wider rounded-full"
           >
-            Login
+            {load ? <p className="py-1"><Loader /></p> : "Login"}
           </button>
         </form>
       </div>

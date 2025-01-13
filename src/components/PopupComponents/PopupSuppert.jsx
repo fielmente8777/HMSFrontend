@@ -4,6 +4,7 @@ import DataContext from "../../context/DataContext";
 import Para from "../textcomponents/Para";
 import { LocateMeIcon } from "../../utils/icon";
 import axios from 'axios'
+import Loader from "../Loader";
 
 const PopupSuppert = () => {
   const {
@@ -31,7 +32,7 @@ const PopupSuppert = () => {
   const handileCancel = () => {
     setShowPopupSuppert(false);
   };
-  const [locationUrl, setLocationUrl] = useState(null);
+  const [load, setLoad] = useState(null);
 
   const handleLocationRequest = async (googlemapurl) => {
     try {
@@ -61,35 +62,39 @@ const PopupSuppert = () => {
           const { latitude, longitude } = position.coords;
           const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
 
-          setLocationUrl(googleMapsUrl);
           setError(null);
-
-          // Example: Send or log the URL
-          console.log("Google Maps URL:", googleMapsUrl);
-          const result = handleLocationRequest(googleMapsUrl);
-          if (result) {
-
-          }
+          handleLocationRequest(googleMapsUrl).then((result) => {
+            if (result.status === true) {
+              setLoad(false)
+              selectRequestPopupData(result.message);
+              setRequestPopup(true);
+              setShowPopupSuppert(false);
+            }
+          });
         },
         (err) => {
+          setLoad(false)
           setError(err.message);
           setLocationUrl(null);
         }
       );
     } else {
+      setLoad(false)
       setError("Geolocation is not supported by your browser.");
     }
   }
 
   const handlePopoup = async (title) => {
-    if (title === "Location shared succesfully") {
-      await handleLocateMe();
+    if (title === "Location shared successfully") {
+      setLoad(true);
+      handleLocateMe();
+    }
+    else {
       selectRequestPopupData(title);
       setRequestPopup(true);
+      setShowPopupSuppert(false);
     }
-    selectRequestPopupData(title);
-    setRequestPopup(true);
-    setShowPopupSuppert(false);
+
   };
 
   let serviceData = null;
@@ -157,10 +162,10 @@ const PopupSuppert = () => {
                   className="bg-[#FF432A] flex gap-2 items-center font-semibold justify-center text-sm text-white py-3 px-4 uppercase tracking-wider rounded-full"
                 >
                   {emergencyServices?.popupTitle ===
-                    "Location shared succesfully" ? (
-                    <>
-                      <LocateMeIcon /> Locate Me
-                    </>
+                    "Location shared successfully" ? (
+                    <p className="flex gap-2 items-center">
+                      {load ? <Loader /> : <><LocateMeIcon /> Locate Me</>}
+                    </p>
                   ) : (
                     "Contact IT Support"
                   )}
