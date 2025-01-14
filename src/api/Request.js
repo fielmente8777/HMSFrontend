@@ -2,8 +2,8 @@ import axios from "axios";
 
 export const RequestAPI = async (requestBody) => {
     try {
-        // const response = await axios.post("https://hmsbackend-7pyp.onrender.com/api/request",
-        const response = await axios.post("http://localhost:8000/api/request",
+        const response = await axios.post("https://hmsbackend-7pyp.onrender.com/api/request",
+            // const response = await axios.post("http://localhost:8000/api/request",
             requestBody,
         );
 
