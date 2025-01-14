@@ -38,7 +38,8 @@ const PopupSuppert = () => {
   const handleLocationRequest = async (googlemapurl) => {
     try {
       const data = JSON.parse(localStorage.getItem("roomsData"));
-      const result = await axios.post('https://hmsbackend-7pyp.onrender.com/api/emergencylocationshared', {
+      // const result = await axios.post('https://hmsbackend-7pyp.onrender.com/api/emergencylocationshared', {
+      const result = await axios.post('http://localhost:8000/api/emergencylocationshared', {
         ndid: localStorage.getItem("hotelid"),
         hid: localStorage.getItem("hid"),
         guestName: localStorage.getItem("guestName"),
