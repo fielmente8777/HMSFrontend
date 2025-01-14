@@ -7,8 +7,6 @@ import DataContext from "./context/DataContext.js";
 function App() {
 
   const { auth } = useContext(DataContext)
-  const storedId = localStorage.getItem("hotelid");
-  const storedHid = localStorage.getItem("hid");
   return (
     <>
       <div className="lg:hidden">

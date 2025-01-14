@@ -5,6 +5,7 @@ import Para from "../textcomponents/Para";
 import { LocateMeIcon } from "../../utils/icon";
 import axios from 'axios'
 import Loader from "../Loader";
+import { FaChevronDown } from "react-icons/fa";
 
 const PopupSuppert = () => {
   const {
@@ -14,7 +15,7 @@ const PopupSuppert = () => {
     emergencyServices,
     setRequestPopup,
     selectRequestPopupData,
-    error, setError
+    setError
   } = useContext(DataContext);
 
 
@@ -110,7 +111,7 @@ const PopupSuppert = () => {
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 ${showPopupSuppert
+      className={`fixed inset-0 z-50 ${showPopupSuppert
         ? "opacity-100 pointer-events-auto"
         : "opacity-0 pointer-events-none"
         }`}
@@ -119,6 +120,8 @@ const PopupSuppert = () => {
     //   setShowPopupSuppert(false); // Close the popup on overlay click
     // }}
     >
+      <div onClick={() => setShowPopupSuppert(false)} className="bg-black/50 transition-opacity duration-300 h-full">
+      </div>
       <div
         className={`box-shadow transform transition-all duration-500 ease-in-out ${showPopupSuppert
           ? "translate-y-0 opacity-100"
@@ -126,16 +129,26 @@ const PopupSuppert = () => {
           } fixed bottom-0 left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
         style={{ height: "auto" }}
       >
-        <div
+        {/* <div
           className="w-10 bg-[#DADADA] h-1 mx-auto mb-4 cursor-pointer"
           onClick={() => setShowPopupSuppert(false)}
-        />
+        /> */}
+        <div
+          className="mx-auto flex justify-between mb-4"
+
+        >
+          <Heading h3 className="text-primary font-medium text-base">
+            {emergencyServices?.title}
+          </Heading>
+          <span onClick={() => setShowPopupSuppert(false)} className="text-[#FF432A]/70 hover:text-[#DADADA] hover:scale-95" >
+            <FaChevronDown size={24} />
+          </span>
+        </div>
+
         <div className="overflow-y-scroll h-full">
           {emergencyServices && (
             <div className="flex flex-col gap-4 pb-4">
-              <Heading h3 className="text-primary font-medium text-base">
-                {emergencyServices?.title}
-              </Heading>
+
               {emergencyServices?.src && (
                 <div className="flex items-center justify-center w-full">
                   <div className="w-full aspect-[4/2.2] relative">
@@ -170,7 +183,7 @@ const PopupSuppert = () => {
                   )}
                 </button>
                 <button
-                  className="border flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
+                  className="border flex items-center active:scale-95 uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
                   onClick={handileCancel}
                 >
                   Close

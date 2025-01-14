@@ -5,6 +5,7 @@ import { Add, Subtract } from "../../utils/icon";
 import DataContext from "../../context/DataContext";
 import { RequestAPI } from "../../api/Request";
 import Loader from "../Loader";
+import { FaChevronDown } from "react-icons/fa";
 
 const Popupcart = () => {
   const {
@@ -123,33 +124,55 @@ const Popupcart = () => {
     serviceData = services;
   }
 
+
   return (
     <div
-      className={`fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 ${showCart
+      className={`fixed inset-0 z-50  ${showCart
         ? "opacity-100 pointer-events-auto"
         : "opacity-0 pointer-events-none"
         }`}
-    // onClick={(e) => {
-    //   e.stopPropagation(); // Prevent the click from bubbling up
-    //   setShowCart(false); // Close the popup on overlay click
-    // }}
+
     >
+      <div onClick={() => {
+        setShowCart(false);
+        setCounter([]); // remove setCounter if you wnat to close popup butt dont want to clean selected request 
+      }} className="bg-black/50 transition-opacity duration-300 h-full">
+      </div>
       <div
         className={`box-shadow transform transition-all duration-500 ease-in-out ${showCart ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
           } fixed bottom-0 left-0 w-full p-5 rounded-tr-3xl z-30 rounded-tl-3xl mt-2 bg-white`}
         style={{ height: !serviceData ? "70%" : servicesHight }}
       >
-        <div
+        {/* <div
           className="w-10 bg-[#DADADA] h-1 mx-auto mb-4"
           onClick={() => setShowCart(false)}
-        />
-        <div className="overflow-y-scroll h-full">
+        /> */}
+
+        {/* remove setCounter if you wnat to close popup butt dont want to clean selected request */}
+        <div
+          className="mx-auto flex justify-between mb-4"
+
+        >
+          <Heading h3 className="text-primary font-medium">
+            {services?.title}
+          </Heading>
+          <span
+            onClick={() => {
+              setShowCart(false);
+              setCounter([]);// remove setCounter if you wnat to close popup butt dont want to clean selected request 
+            }}
+            className="text-[#FF432A]/70 hover:text-[#DADADA] hover:scale-95" >
+            <FaChevronDown size={24} />
+
+          </span>
+        </div>
+        <div className="overflow-y-scroll h-full pb-10">
           <div className="flex flex-col gap-4 pb-4">
             {serviceData && (
               <>
-                <Heading h3 className="text-primary font-medium">
+                {/* <Heading h3 className="text-primary font-medium">
                   {services?.title}
-                </Heading>
+                </Heading> */}
                 {services?.items.map((item, i) => (
                   <div key={i} className="w-full mb-4">
                     <div className="flex items-center justify-between gap-2">
@@ -195,9 +218,9 @@ const Popupcart = () => {
 
             {foodData && (
               <>
-                <Heading h3 className="text-primary font-medium">
+                {/* <Heading h3 className="text-primary font-medium">
                   {foodData?.title}
-                </Heading>
+                </Heading> */}
                 {foodData?.option.map((item, i) => (
                   <div key={i} className="w-full">
                     <Heading
@@ -277,7 +300,7 @@ const Popupcart = () => {
                 {serviceData ? <>{load ? <Loader /> : "Raise Request"}</> : <>{load ? <Loader /> : "Place order"}</>}
               </button>
               <button
-                className="border  flex items-center uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
+                className="border  flex items-center active:scale-95 uppercase justify-center border-[#FF432A] text-sm font-semibold py-3 w-full rounded-full text-[#FF432A]"
                 onClick={handileCancel}
               >
                 cancel
