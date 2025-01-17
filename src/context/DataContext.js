@@ -107,9 +107,6 @@ export const DataProvider = ({ children }) => {
     // era camps
     localStorage.setItem("hotelid", "f80fb327-020b-4fc7-a085-f2ae10edabe9");
     localStorage.setItem("hid", "11960126");
-    // sparv
-    // localStorage.setItem("hotelid", "e50d8dc6-4cfc-4c87-b6c0-145ccdeb4121");
-    // localStorage.setItem("hid", "56369483");
     getClientEngineData();
 
     // till here
@@ -130,13 +127,13 @@ export const DataProvider = ({ children }) => {
   const [emergencyServices, selectEmergencyServices] = useState(null);
   const [requestPopupData, selectRequestPopupData] = useState(null);
   const [amenities, setAmenities] = useState([
-    {
-      icon: <WifiIcon />,
-      title: "Wifi assistance",
-      popupTitle: "Contact it Support",
-      description:
-        "Connect to WiFi name “Shivadya Tent City” and enter password “123456”.",
-    },
+    // {
+    //   icon: <WifiIcon />,
+    //   title: "Wifi assistance",
+    //   popupTitle: "Contact it Support",
+    //   description:
+    //     "Connect to WiFi name “Shivadya Tent City” and enter password “123456”.",
+    // },
     {
       icon: <EmergencyIcon />,
       title: "Emergency",
@@ -244,29 +241,30 @@ export const DataProvider = ({ children }) => {
       title: "Luxury Tents",
       subtitle: "",
       items: [
-        {
-          src: InRoomDining,
-          title: "In-Room Dining",
-          option: [
-            {
-              title: "soup",
-              food: ["Roasted Tomato & Basil", "Hot & Sour Veg"],
-            },
-            {
-              title: "munches",
-              food: [
-                "Peri Peri Fries",
-                "Veg. Coleslaw Sandwich",
-                "Cajun Potato Wedges",
-                "Dal Tadka",
-                "Paneer Lababdaar",
-                "Steamed Rice",
-                "Peas Pulao",
-                "Tandoori Roti",
-              ],
-            },
-          ],
-        },
+        // {
+        //   src: InRoomDining,
+        //   title: "In-Room Dining",
+        //   option: [
+        //     {
+        //       title: "soup",
+        //       food: ["Roasted Tomato & Basil", "Hot & Sour Veg"],
+        //     },
+        //     {
+        //       title: "munches",
+        //       food: [
+        //         "Peri Peri Fries",
+        //         "Veg. Coleslaw Sandwich",
+        //         "Cajun Potato Wedges",
+        //         "Dal Tadka",
+        //         "Paneer Lababdaar",
+        //         "Steamed Rice",
+        //         "Peas Pulao",
+        //         "Tandoori Roti",
+        //       ],
+        //     },
+        //   ],
+        // },
+
         {
           src: Buffet,
           title: "Buffet",

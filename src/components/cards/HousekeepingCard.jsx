@@ -51,16 +51,30 @@ const HousekeepingCard = ({ heading, title, src }) => {
 
       if (service) {
         if (service.items[0].title === title) {
-          selectServices(service.items[0]);
-          setShowCart(true);
-        } else if (service.items[1].title === title) {
-          // const result = handleBuffet(title)
-          // if (result) {
+
+          // uncomment the following line if room dining is available
+          // selectServices(service.items[0]);
+          // setShowCart(true);
+
+          // if room dining is available then remove following statement
           selectRequestPopupData("Call Receptionist");
           setRequestPopup(true);
           setShowCart(false);
-          // }
+          // till here
+
+
         }
+
+        // if room dining is available then uncomment the else statement
+
+        // else if (service.items[1].title === title) {
+        // const result = handleBuffet(title)
+        // if (result) {
+        // selectRequestPopupData("Call Receptionist");
+        // setRequestPopup(true);
+        // setShowCart(false);
+        // }
+        // }
       }
     } else {
       const service = HousekeepingAssistance.find(
