@@ -12,12 +12,12 @@ const Footer = () => {
   return (
     <div className="w-full fixed bottom-0 left-0 z-10 box-shadow flex flex-col gap-5 p-5 mt-2 bg-white">
       <div className="flex flex-col gap-4">
-        <Link to='tel:+917014869131'
+        <Link to='tel:+917985704926'
           // onClick={handleCilck}
           className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-[0.78rem] text-white py-2 px-4 uppercase tracking-wider rounded-full"
         >
           <span>Call the Reception</span>
-          <span className="font-medium text-[0.7rem]">+91 70148 69131</span>
+          <span className="font-medium text-[0.7rem]">+91 7985704926</span>
         </Link>
         {/* <Link
           to="/not-found"

@@ -237,40 +237,40 @@ export const DataProvider = ({ children }) => {
     //     },
     //   ],
     // },
-    {
-      title: "Luxury Tents",
-      subtitle: "",
-      items: [
-        // {
-        //   src: InRoomDining,
-        //   title: "In-Room Dining",
-        //   option: [
-        //     {
-        //       title: "soup",
-        //       food: ["Roasted Tomato & Basil", "Hot & Sour Veg"],
-        //     },
-        //     {
-        //       title: "munches",
-        //       food: [
-        //         "Peri Peri Fries",
-        //         "Veg. Coleslaw Sandwich",
-        //         "Cajun Potato Wedges",
-        //         "Dal Tadka",
-        //         "Paneer Lababdaar",
-        //         "Steamed Rice",
-        //         "Peas Pulao",
-        //         "Tandoori Roti",
-        //       ],
-        //     },
-        //   ],
-        // },
+    // {
+    //   title: "Luxury Tents",
+    //   subtitle: "",
+    //   items: [
+    //     {
+    //       src: InRoomDining,
+    //       title: "In-Room Dining",
+    //       option: [
+    //         {
+    //           title: "soup",
+    //           food: ["Roasted Tomato & Basil", "Hot & Sour Veg"],
+    //         },
+    //         {
+    //           title: "munches",
+    //           food: [
+    //             "Peri Peri Fries",
+    //             "Veg. Coleslaw Sandwich",
+    //             "Cajun Potato Wedges",
+    //             "Dal Tadka",
+    //             "Paneer Lababdaar",
+    //             "Steamed Rice",
+    //             "Peas Pulao",
+    //             "Tandoori Roti",
+    //           ],
+    //         },
+    //       ],
+    //     },
 
-        {
-          src: Buffet,
-          title: "Buffet",
-        },
-      ],
-    },
+    //     {
+    //       src: Buffet,
+    //       title: "Buffet",
+    //     },
+    //   ],
+    // },
   ]);
 
   const [modalData, setModalData] = useState([

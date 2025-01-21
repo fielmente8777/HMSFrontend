@@ -42,7 +42,7 @@ const RequestRaisedPopup = () => {
               Cancel
             </button>
             <Link
-              to="tel:+91 70148 69131"
+              to="tel:+91 7985704926"
               className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 w-full uppercase tracking-wider rounded-full"
             >
               Call Us
