@@ -308,6 +308,11 @@ export const DataProvider = ({ children }) => {
       icon: <BuffetIcon />,
     },
     {
+      title: "Are you sure!",
+      description: "Once you check out you will never be able to Check in",
+      icon: <BuffetIcon />,
+    },
+    {
       title: "Order Placed Successfully",
       description:
         "We have received your order, will shortly get in touch with you.",
@@ -315,6 +320,7 @@ export const DataProvider = ({ children }) => {
     },
   ]);
   const [counter, setCounter] = useState([]);
+  const [myRequestedItem, setMyRequestedItem] = useState([]);
   const [requestPopup, setRequestPopup] = useState(false);
   const [specialRequest, setSpecialRequest] = useState("");
 
@@ -375,6 +381,8 @@ export const DataProvider = ({ children }) => {
         selectServices,
         counter,
         setCounter,
+        myRequestedItem,
+        setMyRequestedItem,
         prepareRequestBody,
         setPreparedRequestBody,
         requestPopup,

@@ -34,6 +34,9 @@ const Login = () => {
       if (response) {
         localStorage.setItem("guestName", guestName);
         localStorage.setItem("guestNumber", guestNumber);
+        const currentTime = Date.now();
+        localStorage.setItem("lastClearTime", currentTime);
+
 
         if (response.exists) {
           localStorage.setItem("roomsData", JSON.stringify(response.data));

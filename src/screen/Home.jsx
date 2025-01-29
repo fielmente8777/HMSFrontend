@@ -10,9 +10,11 @@ import Footer from "../components/Footer/Footer";
 import CommonServiceCard1 from "../components/ServiceCard/CommonServiceCard1";
 import CommonServiceCard from "../components/ServiceCard/CommonServiceCard";
 import PopupSuppert from "../components/PopupComponents/PopupSuppert";
+import ProfileMain from "../components/Myprofile/ProfileMain";
 const Home = () => {
   const { showCart, reservationId, loading, setLoading, getClientEngineData, hotelDetails, clientWebsiteData } = useContext(DataContext);
   const [roomData, setRoomData] = useState();
+  const [activeTab, setActiveTab] = useState("Explore");
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -20,8 +22,23 @@ const Home = () => {
 
 
 
+  const checkAndClearLocalStorage = () => {
+    const lastClearTime = localStorage.getItem("lastClearTime");
+    const currentTime = Date.now();
+    const oneDay = 24 * 60 * 60 * 1000;
+
+    if (!lastClearTime || currentTime - lastClearTime > oneDay) {
+      localStorage.clear();
+      localStorage.setItem("lastClearTime", currentTime); // Update the timestamp after clearing
+    } else {
+      console.log("Local storage is within the 24-hour limit.");
+    }
+  };
+
 
   useEffect(() => {
+
+    checkAndClearLocalStorage();
 
     const params = new URLSearchParams(location.search);
 
@@ -43,6 +60,9 @@ const Home = () => {
     getClientEngineData()
   }, []);
 
+  const handleActiveTab = (title) => {
+    setActiveTab(title);
+  }
 
   return (
     <div className={`w-full`}>
@@ -68,6 +88,7 @@ const Home = () => {
             )}
             <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5))]">
               <div className="flex flex-col gap-2 justify-end py-16 text-white h-full px-5">
+
                 <h1 className="text-xl font-semibold capitalize">
                   Hey {localStorage.getItem("guestName")}
                 </h1>
@@ -76,6 +97,7 @@ const Home = () => {
                 </p>
                 <p className="text-base capitalize"></p>
                 <p className="text-base capitalize">Welcome to {hotelDetails?.HotelName}</p>
+
               </div>
             </div>
           </div>
@@ -90,9 +112,26 @@ const Home = () => {
                 placeholder="Search Services"
               />
             </div> */}
+            <div className="flex justify-between text-[0.78rem] rounded-full bg-[#F4F0F0]">
+              <span onClick={() => handleActiveTab("Explore")} className={`${activeTab === "Explore" ? "bg-[#FF432A] text-white" : ""} font-medium py-2 rounded-full w-full px-1 flex justify-center items-center`}>Explore</span>
+              <span onClick={() => handleActiveTab("My Profile")} className={`${activeTab === "My Profile" ? "bg-[#FF432A] text-white" : ""} font-medium py-2 rounded-full w-full px-1 flex justify-center items-center`}>My Profile</span>
+            </div>
+            {activeTab === "Explore" ?
 
-            <CommonServiceCard />
-            <CommonServiceCard1 />
+              <>
+                <CommonServiceCard />
+                <CommonServiceCard1 />
+              </>
+              :
+
+              <div className="">
+                <ProfileMain />
+              </div>
+
+
+
+            }
+
           </div>
 
           <Popupcart />

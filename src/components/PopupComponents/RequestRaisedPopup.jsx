@@ -2,14 +2,23 @@ import React, { useContext } from "react";
 import DataContext from "../../context/DataContext";
 import Heading from "../textcomponents/Heading";
 import Para from "../textcomponents/Para";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom'
+
 
 const RequestRaisedPopup = () => {
+
+  const navigate = useNavigate()
+
   const { setRequestPopup, requestPopup, modalData, requestPopupData } =
     useContext(DataContext);
   const handleRaisedRequestPopup = () => {
     setRequestPopup(false);
   };
+
+  const handleLogoutwithFeedback = () => {
+    setRequestPopup(false);
+    navigate('/feedback');
+  }
 
   const data = modalData.find((item) => item.title === requestPopupData);
   return (
@@ -34,26 +43,45 @@ const RequestRaisedPopup = () => {
             {data?.description}
           </Para>
 
-          {data?.title === "Call Receptionist" || data?.title === "Luggage assistance" || data?.title === "Medical assistance" ? (<div className="grid grid-cols-2 items-center justify-center gap-4 w-full">
-            <button
-              onClick={handleRaisedRequestPopup}
-              className="border flex items-center justify-center uppercase border-[#FF432A] text-sm font-semibold py-3  w-full rounded-full text-[#FF432A]"
-            >
-              Cancel
-            </button>
-            <Link
-              to="tel:+91 7985704926"
-              className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 w-full uppercase tracking-wider rounded-full"
-            >
-              Call Us
-            </Link>
-          </div>) :
-            (<button
-              onClick={handleRaisedRequestPopup}
-              className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 w-full uppercase tracking-wider rounded-full"
-            >
-              Okay
-            </button>)}
+          {data?.title === "Call Receptionist" || data?.title === "Luggage assistance" || data?.title === "Medical assistance" ?
+            <div className="grid grid-cols-2 items-center justify-center gap-4 w-full">
+              <button
+                onClick={handleRaisedRequestPopup}
+                className="border flex items-center justify-center uppercase border-[#FF432A] text-sm font-semibold py-3  w-full rounded-full text-[#FF432A]"
+              >
+                Cancel
+              </button>
+              <Link
+                to="tel:+91 7985704926"
+                className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 w-full uppercase tracking-wider rounded-full"
+              >
+                Call Us
+              </Link>
+            </div>
+            :
+            data?.title === "Are you sure!" ?
+              <div className="grid grid-cols-2 items-center justify-center gap-4 w-full">
+                <button
+                  onClick={handleLogoutwithFeedback}
+                  className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 w-full uppercase tracking-wider rounded-full"
+                >
+                  Yes, Sure
+                </button>
+                <button
+                  onClick={handleRaisedRequestPopup}
+                  className="border flex items-center justify-center uppercase border-[#FF432A] text-sm font-semibold py-3  w-full rounded-full text-[#FF432A]"
+                >
+                  No, Cancel
+                </button>
+              </div>
+              :
+              <button
+                onClick={handleRaisedRequestPopup}
+                className="bg-[#FF432A] flex flex-col items-center font-semibold justify-center text-sm text-white py-3 w-full uppercase tracking-wider rounded-full"
+              >
+                Okay
+              </button>
+          }
         </div>
       </div>
     </div>
