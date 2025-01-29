@@ -70,16 +70,18 @@ const Feedback = () => {
             selectedRating: selectedRating === 1 ? "one" : selectedRating === 2 ? "two" : selectedRating === 3 ? "three" : selectedRating === 4 ? "four" : "five",
             suggestion,
         }
-        alert('Submit');
-
+        localStorage.removeItem('guestName')
+        localStorage.removeItem('guestNumber')
+        localStorage.removeItem('lastClearTime')
         localStorage.removeItem('roomsData')
         localStorage.setItem('hasDoneFeedback', "true");
         navigate('/thanks')
     }
 
     const handleCloseFeedback = () => {
-        alert('Close');
-        navigate('/login')
+        localStorage.removeItem('roomsData')
+        localStorage.setItem('hasDoneFeedback', "true");
+        navigate('/thanks')
     }
     return (
         <div className="">

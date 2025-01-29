@@ -324,26 +324,7 @@ export const DataProvider = ({ children }) => {
   const [requestPopup, setRequestPopup] = useState(false);
   const [specialRequest, setSpecialRequest] = useState("");
 
-  const [prepareRequestBody, setPreparedRequestBody] = useState({
-    guestName: "Abhijeet",
-    guestPhoneNumber: "9528295631",
-    roomNumber: "p-201",
-    requestedItems: [
-      {
-        item: "Towels",
-        quantity: 2,
-      },
-      {
-        item: "Pillows",
-        quantity: 1,
-      },
-      {
-        item: "Bedsheet",
-        quantity: 2,
-      },
-    ],
-    specialRequest: "Please deliver by 7 PM.",
-  });
+  const [prepareRequestBody, setPreparedRequestBody] = useState({});
 
   const [location, setLocation] = useState();
   const [loading, setLoading] = useState(false);
