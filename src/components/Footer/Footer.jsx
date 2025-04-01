@@ -11,7 +11,7 @@ const Footer = () => {
   };
 
 
-  console.log(clientWebsiteData)
+  // console.log(clientWebsiteData)
   return (
     <div className="w-full fixed bottom-0 left-0 z-10 box-shadow flex flex-col gap-5 pt-5 px-5 py-2 mt-2 bg-white">
       <div className="flex flex-col gap-2">
