@@ -105,8 +105,8 @@ export const DataProvider = ({ children }) => {
 
     //Comment these lines if runnning with backend
     // era camps
-    localStorage.setItem("hotelid", "f80fb327-020b-4fc7-a085-f2ae10edabe9");
-    localStorage.setItem("hid", "11960126");
+    localStorage.setItem("hotelid", "757874a0-0058-4629-96e8-569b041445ff");
+    localStorage.setItem("hid", "20272036");
     getClientEngineData();
 
     // till here
@@ -127,13 +127,13 @@ export const DataProvider = ({ children }) => {
   const [emergencyServices, selectEmergencyServices] = useState(null);
   const [requestPopupData, selectRequestPopupData] = useState(null);
   const [amenities, setAmenities] = useState([
-    // {
-    //   icon: <WifiIcon />,
-    //   title: "Wifi assistance",
-    //   popupTitle: "Contact it Support",
-    //   description:
-    //     "Connect to WiFi name “Shivadya Tent City” and enter password “123456”.",
-    // },
+    {
+      icon: <WifiIcon />,
+      title: "Wifi assistance",
+      popupTitle: "Contact it Support",
+      description:
+        "Connect to WiFi name “Shivadya Tent City” and enter password “123456”.",
+    },
     {
       icon: <EmergencyIcon />,
       title: "Emergency",
