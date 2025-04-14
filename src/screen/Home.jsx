@@ -43,9 +43,16 @@ const Home = () => {
 
     const params = new URLSearchParams(location.search);
 
+
     const ndid = params.get('id');
     const hid = params.get('hid');
     const reservationid = params.get('reservationid');
+
+
+    localStorage.setItem("hotelid", ndid)
+    localStorage.setItem("hid", hid)
+
+    console.log(ndid, hid, reservationId)
 
     const storedNdid = localStorage.getItem('hotelid');
     const storedHid = localStorage.getItem('hid');

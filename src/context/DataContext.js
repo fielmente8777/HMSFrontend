@@ -105,9 +105,12 @@ export const DataProvider = ({ children }) => {
 
     //Comment these lines if runnning with backend
     // era camps
-    localStorage.setItem("hotelid", "757874a0-0058-4629-96e8-569b041445ff");
-    localStorage.setItem("hid", "20272036");
+    // console.log(window.location.href)
+    // localStorage.setItem("hotelid", "757874a0-0058-4629-96e8-569b041445ff");
+    // localStorage.setItem("hid", "20272036");
     getClientEngineData();
+
+
 
     // till here
 
