@@ -1,8 +1,8 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
-import bannerImg from "../images/erabanner2.webp";
-import { EmergencyIcon, SearchIcon, WifiIcon } from "../utils/icon";
-import AmenityCard from "../components/cards/AmenityCard";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+// import bannerImg from "../images/erabanner2.webp";
+// import { EmergencyIcon, SearchIcon, WifiIcon } from "../utils/icon";
+// import AmenityCard from "../components/cards/AmenityCard";
 import Popupcart from "../components/PopupComponents/Popupcart";
 import DataContext from "../context/DataContext";
 import RequestRaisedPopup from "../components/PopupComponents/RequestRaisedPopup";
@@ -14,10 +14,10 @@ import ProfileMain from "../components/Myprofile/ProfileMain";
 import Loaderone from "../components/Loaderone";
 const Home = () => {
   const {
-    showCart,
-    reservationId,
+    // showCart,
+    // reservationId,
     loading,
-    setLoading,
+    // setLoading,
     getClientEngineData,
     hotelDetails,
     clientWebsiteData,

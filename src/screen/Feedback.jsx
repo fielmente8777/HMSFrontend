@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { use, useContext, useEffect, useState } from 'react'
 import Loader from '../components/Loader';
 import DataContext from '../context/DataContext';
 import { IoMdClose } from "react-icons/io";
@@ -74,10 +74,15 @@ const Feedback = () => {
         localStorage.removeItem('guestNumber')
         localStorage.removeItem('lastClearTime')
         localStorage.removeItem('roomsData')
+        localStorage.removeItem('hid')
+        localStorage.removeItem('hotelid')
         localStorage.setItem('hasDoneFeedback', "true");
         navigate('/thanks')
     }
 
+    // when user closes the window or refreshes the page, remove only feedback-related localStorage items
+
+   
     const handleCloseFeedback = () => {
         localStorage.removeItem('roomsData')
         localStorage.setItem('hasDoneFeedback', "true");
