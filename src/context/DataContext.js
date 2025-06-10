@@ -26,6 +26,10 @@ import {
 
 const DataContext = createContext({});
 
+// gusetName
+// guestNumber
+// roomsData
+
 export const DataProvider = ({ children }) => {
   const [auth, setAuth] = useState(true);
   const [hotelDetails, setHotelDetails] = useState(null);
@@ -55,6 +59,7 @@ export const DataProvider = ({ children }) => {
       setClientsWebsiteData(json.WebsiteData);
     }
   };
+
   const getClientEngineData = async () => {
     setLoading(true);
     try {
@@ -84,6 +89,8 @@ export const DataProvider = ({ children }) => {
     setLoading(false);
   };
 
+  console.log(clientWebsiteData);
+
   // const getId = async () => {
   //   try {
   //     console.log("fhgjkm")
@@ -110,8 +117,6 @@ export const DataProvider = ({ children }) => {
     // localStorage.setItem("hid", "20272036");
     getClientEngineData();
 
-
-
     // till here
 
     //Comment these lines if runnning with frontend
@@ -129,6 +134,7 @@ export const DataProvider = ({ children }) => {
   const [services, selectServices] = useState(null);
   const [emergencyServices, selectEmergencyServices] = useState(null);
   const [requestPopupData, selectRequestPopupData] = useState(null);
+
   const [amenities, setAmenities] = useState([
     {
       icon: <WifiIcon />,
@@ -322,6 +328,7 @@ export const DataProvider = ({ children }) => {
       icon: <ConfirmIcon />,
     },
   ]);
+
   const [counter, setCounter] = useState([]);
   const [myRequestedItem, setMyRequestedItem] = useState([]);
   const [requestPopup, setRequestPopup] = useState(false);

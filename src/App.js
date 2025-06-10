@@ -7,22 +7,22 @@ import DataContext from "./context/DataContext.js";
 import Feedback from "./screen/Feedback.jsx";
 import Thanks from "./screen/Thanks.jsx";
 function App() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { auth } = useContext(DataContext)
-  const userNoLongerExists = localStorage.getItem('hasDoneFeedback')
+  const { auth } = useContext(DataContext);
+  const userNoLongerExists = localStorage.getItem("hasDoneFeedback");
 
   useEffect(() => {
     if (userNoLongerExists === "true") {
-      navigate('/thanks')
+      navigate("/thanks");
     }
-  }, [navigate])
+  }, [navigate]);
 
-  console.log(userNoLongerExists)
+  console.log(userNoLongerExists);
   return (
     <>
       <div className="lg:hidden">
-        {!userNoLongerExists || userNoLongerExists === "false" ?
+        {!userNoLongerExists || userNoLongerExists === "false" ? (
           <>
             <Routes>
               <Route path="/" element={<Navigate to="/login" replace />} />
@@ -33,18 +33,17 @@ function App() {
               <Route path="/feedback" element={<Feedback />} />
             </Routes>
           </>
-          :
+        ) : (
           <Routes>
             <Route path="/" element={<Navigate to="/thanks" replace />} />
             <Route path="*" element={<Navigate to="/thanks" replace />} />
             <Route path="/thanks" element={<Thanks />} />
           </Routes>
-        }
+        )}
       </div>
       <div className="max-lg:hidden h-screen flex items-center justify-center w-full">
         <div>open it in mobile device only</div>
       </div>
-
     </>
   );
 }
