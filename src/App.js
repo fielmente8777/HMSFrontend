@@ -16,7 +16,7 @@ function App() {
     if (userNoLongerExists === "true") {
       navigate("/thanks");
     }
-  }, [navigate]);
+  }, [navigate, userNoLongerExists]);
 
   console.log(userNoLongerExists);
   return (
@@ -25,6 +25,7 @@ function App() {
         {!userNoLongerExists || userNoLongerExists === "false" ? (
           <>
             <Routes>
+              
               <Route path="/" element={<Navigate to="/login" replace />} />
               <Route path="*" element={<Navigate to="/login" replace />} />
               <Route path="/login" element={<Login auth={auth} />} />

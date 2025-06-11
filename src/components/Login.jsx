@@ -38,7 +38,13 @@ const Login = () => {
         const currentTime = Date.now();
         localStorage.setItem("lastClearTime", currentTime);
 
-        if (response.exists) {
+        // console.log(response)
+
+        // if bookingId == rservationId navigate to home
+        if (
+          response.data?.bookingId === response.data?.reservationId ||
+          response.data?.roomId === response.data?.reservationId
+        ) {
           localStorage.setItem("roomsData", JSON.stringify(response.data));
           navigate(
             `/home/?id=${localStorage.getItem(
@@ -47,16 +53,29 @@ const Login = () => {
               response.data.roomId
             }`
           );
-        } else {
-          localStorage.setItem("bookingData", JSON.stringify(response.data));
-          navigate(
-            `/home/?id=${localStorage.getItem(
-              "hotelid"
-            )}&hid=${localStorage.getItem("hid")}&reservationid=${
-              response.data.bookingId
-            }`
-          );
+          
         }
+
+        // if (response.exists) {
+        //   localStorage.setItem("roomsData", JSON.stringify(response.data));
+        //   navigate(
+        //     `/home/?id=${localStorage.getItem(
+        //       "hotelid"
+        //     )}&hid=${localStorage.getItem("hid")}&reservationid=${
+        //       response.data.roomId
+        //     }`
+        //   );
+        // } else {
+        //   localStorage.setItem("bookingData", JSON.stringify(response.data));
+
+        //   navigate(
+        //     `/home/?id=${localStorage.getItem(
+        //       "hotelid"
+        //     )}&hid=${localStorage.getItem("hid")}&reservationid=${
+        //       response.data.bookingId
+        //     }`
+        //   );
+        // }
 
         setLoad(false);
       } else {
