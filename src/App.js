@@ -6,6 +6,7 @@ import { useContext, useEffect } from "react";
 import DataContext from "./context/DataContext.js";
 import Feedback from "./screen/Feedback.jsx";
 import Thanks from "./screen/Thanks.jsx";
+import ProtectedRoute from "./protected/ProtectedRoute.jsx";
 function App() {
   const navigate = useNavigate();
 
@@ -25,10 +26,13 @@ function App() {
         {!userNoLongerExists || userNoLongerExists === "false" ? (
           <>
             <Routes>
-              
-              <Route path="/" element={<Navigate to="/login" replace />} />
+              <Route path="/" element={<ProtectedRoute />}>
+                <Route path="/home/:id" element={<Login auth={auth} />} />
+              </Route>
+
+              {/* <Route path="/" element={<Navigate to="/login" replace />} />
               <Route path="*" element={<Navigate to="/login" replace />} />
-              <Route path="/login" element={<Login auth={auth} />} />
+              <Route path="/login" element={<Login auth={auth} />} /> */}
               <Route path="/home" element={<Home auth={auth} />} />
               <Route path="/not-found" element={<NotFound />} />
               <Route path="/feedback" element={<Feedback />} />
