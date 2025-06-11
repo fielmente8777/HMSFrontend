@@ -27,7 +27,7 @@ function App() {
           <>
             <Routes>
               <Route path="/" element={<ProtectedRoute />}>
-                <Route path="/home/:id" element={<Login auth={auth} />} />
+                <Route path=":name/:locationName/:grmid" element={<Login auth={auth} />} />
               </Route>
 
               {/* <Route path="/" element={<Navigate to="/login" replace />} />
