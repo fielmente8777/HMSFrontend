@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 // import bannerImg from "../images/erabanner2.webp";
 // import { EmergencyIcon, SearchIcon, WifiIcon } from "../utils/icon";
 // import AmenityCard from "../components/cards/AmenityCard";
-import Popupcart from "../components/PopupComponents/Popupcart";
-import DataContext from "../context/DataContext";
-import RequestRaisedPopup from "../components/PopupComponents/RequestRaisedPopup";
 import Footer from "../components/Footer/Footer";
-import CommonServiceCard1 from "../components/ServiceCard/CommonServiceCard1";
-import CommonServiceCard from "../components/ServiceCard/CommonServiceCard";
-import PopupSuppert from "../components/PopupComponents/PopupSuppert";
-import ProfileMain from "../components/Myprofile/ProfileMain";
 import Loaderone from "../components/Loaderone";
+import ProfileMain from "../components/Myprofile/ProfileMain";
+import Popupcart from "../components/PopupComponents/Popupcart";
+import PopupSuppert from "../components/PopupComponents/PopupSuppert";
+import RequestRaisedPopup from "../components/PopupComponents/RequestRaisedPopup";
+import CommonServiceCard from "../components/ServiceCard/CommonServiceCard";
+import CommonServiceCard1 from "../components/ServiceCard/CommonServiceCard1";
+import DataContext from "../context/DataContext";
 const Home = () => {
   const {
     // showCart,
@@ -73,7 +73,7 @@ const Home = () => {
     }
     setRoomData(JSON.parse(localStorage.getItem("roomsData")));
     getClientEngineData();
-  }, []);
+  });
 
   const handleActiveTab = (title) => {
     setActiveTab(title);
