@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
-import Heading from "../textcomponents/Heading";
+import { useContext } from "react";
 import DataContext from "../../context/DataContext";
-import { RequestAPI } from "../../api/Request";
+import Heading from "../textcomponents/Heading";
 
 const HousekeepingCard = ({ heading, title, src }) => {
 
@@ -11,9 +10,9 @@ const HousekeepingCard = ({ heading, title, src }) => {
     HousekeepingAssistance,
     setRequestPopup,
     selectRequestPopupData,
-    setCounter,
-    setError,
-    specialRequest, setSpecialRequest
+    // setCounter,
+    // setError,
+    // specialRequest, setSpecialRequest
   } = useContext(DataContext);
 
   // const handleBuffet = async (title) => {

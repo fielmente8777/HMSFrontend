@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
+import { RequestAPI } from "../../api/Request";
+import DataContext from "../../context/DataContext";
+import { Add, Subtract } from "../../utils/icon";
+import Loader from "../Loader";
 import Heading from "../textcomponents/Heading";
 import Para from "../textcomponents/Para";
-import { Add, Subtract } from "../../utils/icon";
-import DataContext from "../../context/DataContext";
-import { RequestAPI } from "../../api/Request";
-import Loader from "../Loader";
-import { FaChevronDown } from "react-icons/fa";
 
 const Popupcart = () => {
   const {
@@ -19,8 +19,8 @@ const Popupcart = () => {
     selectRequestPopupData,
     specialRequest,
     setSpecialRequest,
-    loading,
-    setLoading
+    // loading,
+    // setLoading
   } = useContext(DataContext);
 
   const [load, setLoad] = useState(false);

@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import DataContext from "../../context/DataContext";
 
 const Footer = () => {
   const { setRequestPopup, selectRequestPopupData, clientWebsiteData } =
     useContext(DataContext);
-  const handleCilck = () => {
-    selectRequestPopupData("Contact it Support");
-    setRequestPopup(true);
-  };
+  // const handleCilck = () => {
+  //   selectRequestPopupData("Contact it Support");
+  //   setRequestPopup(true);
+  // };
 
 
   // console.log(clientWebsiteData)

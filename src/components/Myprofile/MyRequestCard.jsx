@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
-import DataContext from '../../context/DataContext';
+import { useContext, useEffect, useState } from 'react';
 import { MyRequestAPI } from '../../api/MyRequest';
+import DataContext from '../../context/DataContext';
 
 const MyRequestCard = () => {
 
@@ -9,7 +9,7 @@ const MyRequestCard = () => {
         setMyRequestedItem,
     } = useContext(DataContext);
 
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
@@ -23,11 +23,11 @@ const MyRequestCard = () => {
     }, [])
 
 
-    const getRequestedItemName = () => {
-        // const itemNameSet = new Set();
+    // const getRequestedItemName = () => {
+    //     const itemNameSet = new Set();
 
-        // data.
-    }
+    //     data.
+    // }
     const countRequestedItems = (data, itemName) => {
         return data?.reduce((count, request) => {
             if (request.requestedItems) {
@@ -41,7 +41,7 @@ const MyRequestCard = () => {
     }
 
 
-    const totalCount = countRequestedItems(myRequestedItem?.data, "Toiletries");
+    // const totalCount = countRequestedItems(myRequestedItem?.data, "Toiletries");
 
     return (
         <div className='min-h-[100px] border rounded-md '>

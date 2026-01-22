@@ -1,27 +1,25 @@
 import { createContext, useEffect, useState } from "react";
-import Pillows from "../images/Pillows.webp";
-import Blankets from "../images/Blankets.webp";
-import Towels from "../images/Towels.webp";
-import Toiletries from "../images/Toiletries.webp";
-import RoomCleaning from "../images/RoomCleaning.png";
 import BathroomCleaning from "../images/BathroomCleaning.png";
+import Blankets from "../images/Blankets.webp";
+import Pillows from "../images/Pillows.webp";
+import RoomCleaning from "../images/RoomCleaning.png";
 import TapLeakage from "../images/TapLeakage.png";
+import Toiletries from "../images/Toiletries.webp";
+import Towels from "../images/Towels.webp";
 // import Drainage from "../images/Drainage.png";
 import PowerOutages from "../images/PowerOutages.png";
 // import FaultySwitches from "../images/FaultySwitches.png";
 // import FaultyAppliance from "../images/FaultyAppliance.png";
 import HotWater from "../images/HotWater.png";
-import Buffet from "../images/Buffet.png";
-import InRoomDining from "../images/InRoomDining.png";
 import LocateMe from "../images/LocateMe.png";
 import {
+  BuffetIcon,
+  ConfirmIcon,
+  ContactitSupport,
   EmergencyIcon,
-  WifiIcon,
   LuggageAssistance,
   MedicalAssistance,
-  ContactitSupport,
-  ConfirmIcon,
-  BuffetIcon,
+  WifiIcon,
 } from "../utils/icon";
 
 const DataContext = createContext({});
@@ -50,7 +48,7 @@ export const DataProvider = ({ children }) => {
           Accept: "application/json, text/plain, /",
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     const json = await response.json();
@@ -65,7 +63,7 @@ export const DataProvider = ({ children }) => {
     try {
       const response = await fetch(
         `${baseUrl}/booking/getenginedetails/${localStorage.getItem(
-          "hotelid"
+          "hotelid",
         )}/${localStorage.getItem("hid")}`,
         {
           method: "GET",
@@ -73,7 +71,7 @@ export const DataProvider = ({ children }) => {
             Accept: "application/json, text/plain, /",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       const json = await response.json();
 
@@ -350,6 +348,7 @@ export const DataProvider = ({ children }) => {
         loading,
         setLoading,
         coreIds,
+        setCoreIds,
         clientWebsiteData,
         setClientsWebsiteData,
         hotelDetails,

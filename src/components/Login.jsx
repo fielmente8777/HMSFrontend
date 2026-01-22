@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { LoginAPI } from "../api/Login";
-import { useNavigate, useLocation } from "react-router-dom";
 import DataContext from "../context/DataContext";
 import Loader from "./Loader";
 import Loaderone from "./Loaderone";
@@ -12,16 +12,16 @@ const Login = () => {
     error,
     setError,
     hotelDetails,
-    coreIds,
-    loading,
-    setLoading,
+    // coreIds,
+    // loading,
+    // setLoading,
   } = useContext(DataContext);
   const [guestName, setGuestName] = useState("");
   const [guestNumber, setGuestNumber] = useState("");
   const [load, setLoad] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
 
   // const id = "B2024022400002";
   // const roomId = "d-101";
@@ -97,7 +97,7 @@ const Login = () => {
         )}&hid=${localStorage.getItem("hid")}&reservationid=${roomData?.roomId}`
       );
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="">

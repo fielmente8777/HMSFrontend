@@ -1,18 +1,15 @@
-import React, { use, useContext, useEffect, useState } from 'react'
-import Loader from '../components/Loader';
-import DataContext from '../context/DataContext';
+import { useContext, useState } from 'react';
 import { IoMdClose } from "react-icons/io";
-import { useNavigate } from 'react-router-dom';
-import { Rating } from 'react-simple-star-rating'
 import {
-    MdFavoriteBorder,
-    MdFavorite,
     MdOutlineSentimentDissatisfied,
     MdOutlineSentimentNeutral,
     MdOutlineSentimentSatisfied,
     MdOutlineSentimentVeryDissatisfied,
     MdOutlineSentimentVerySatisfied
 } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
+import Loader from '../components/Loader';
+import DataContext from '../context/DataContext';
 
 const tooltipArray = [
     "Terrible",
@@ -26,18 +23,18 @@ const tooltipArray = [
     "Awesome",
     "Awesome+"
 ];
-const fillColorArray = [
-    "#f17a45",
-    "#f17a45",
-    "#f19745",
-    "#f19745",
-    "#f1a545",
-    "#f1a545",
-    "#f1b345",
-    "#f1b345",
-    "#f1d045",
-    "#f1d045"
-];
+// const fillColorArray = [
+//     "#f17a45",
+//     "#f17a45",
+//     "#f19745",
+//     "#f19745",
+//     "#f1a545",
+//     "#f1a545",
+//     "#f1b345",
+//     "#f1b345",
+//     "#f1d045",
+//     "#f1d045"
+// ];
 
 
 const Feedback = () => {
